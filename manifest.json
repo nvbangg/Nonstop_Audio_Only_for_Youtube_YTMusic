@@ -1,0 +1,44 @@
+{
+  "manifest_version": 3,
+  "name": "YouTube™ YTMusic™ Nonstop",
+  "version": "1.0",
+  "description": "Prevent auto-pause, keep YouTube & YouTube Music nonstop",
+  "author": "nvbangg (https://github.com/nvbangg)",
+  "homepage_url": "https://github.com/nvbangg/nvbangg-tools",
+  
+  "host_permissions": [
+    "*://*.youtube.com/*"
+  ],
+  
+  "action": {
+    "default_title": "YouTube™ YTMusic™ Nonstop"
+  },
+  
+  "background": {
+    "service_worker": "background.js"
+  },
+  
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.youtube.com/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ],
+  
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
+  
+  "web_accessible_resources": [
+    {
+      "resources": ["inject.js"],
+      "matches": ["*://*.youtube.com/*"]
+    }
+  ]
+}
