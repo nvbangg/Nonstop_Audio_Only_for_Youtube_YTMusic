@@ -13,4 +13,4 @@
 - No analytics, tracking, ads, or third‑party sharing.
 
 ## Contact
-Questions? Visit the project repository: https://github.com/nvbangg/nvbangg-tools
+Questions? Contact: nvbangg@gmail.com

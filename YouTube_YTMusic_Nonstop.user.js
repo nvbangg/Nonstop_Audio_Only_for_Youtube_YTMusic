@@ -5,8 +5,8 @@
 // @description  Prevent auto-pause, keep YouTube & YouTube Music nonstop
 // @author       nvbangg (https://github.com/nvbangg)
 // @copyright    Copyright (c) 2025 Nguyễn Văn Bằng (nvbangg, github.com/nvbangg)
-// @homepage     https://github.com/nvbangg/nvbangg-tools
-// @icon         https://www.google.com/s2/favicons?sz=64&domain=youtube.com
+// @homepage     https://github.com/nvbangg/YouTube_YTMusic_Nonstop
+// @icon         https://raw.githubusercontent.com/nvbangg/YouTube_YTMusic_Nonstop/main/icon.png
 // @match        *://*.youtube.com/*
 // @run-at       document-start
 // @grant        none

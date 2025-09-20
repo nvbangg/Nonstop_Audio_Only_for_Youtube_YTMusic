@@ -5,16 +5,16 @@ Prevent auto-pause, keep YouTube & YouTube Music nonstop
 ## Introduction
 This extension prevents YouTube and YouTube Music from auto-pausing due to inactivity or background tab. It keeps your music and videos playing nonstop, even if you switch tabs or leave the browser running.
 
-# Privacy Policy for YouTube™ YTMusic™ Nonstop
+# Installation:
 
-## Scope
-- Works only on `youtube.com` and `music.youtube.com` pages
-- No access to other sites or personal data
+- Install the extension from Chrome Web Store: [YouTube™ YTMusic™ Nonstop]()
 
-## How It Works
-- Injects a script to make the page appear always visible, block visibility change events, and keep activity timestamps updated to prevent auto-pause
-- All operations run locally in your browser; no network requests
+- Or install via user script from [Greasyfork]()
 
-## Data and Third Parties
-- We do not collect, store, or transmit personal data. 
-- No analytics, tracking, ads, or third‑party sharing.
+![Demo](image/demo.png)
+
+## [![Follow](https://img.shields.io/github/followers/nvbangg?label=Follow%20my%20GitHub&logo=github)](https://github.com/nvbangg) [![Star](https://img.shields.io/github/stars/nvbangg/YouTube_YTMusic_Nonstop?label=Star%20this%20repo&logo=github)](https://github.com/nvbangg/YouTube_YTMusic_Nonstop)
+
+![Gif](https://raw.githubusercontent.com/nvbangg/nvbangg/main/data/star_follow.gif)
+
+[![Visitors](https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Fgithub.com%2Fnvbangg%2FYouTube_YTMusic_Nonstop&countColor=blue)](https://visitorbadge.io/status?path=https%3A%2F%2Fgithub.com%2Fnvbangg%2FYouTube_YTMusic_Nonstop)

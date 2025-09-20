@@ -4,7 +4,7 @@
   "version": "1.0",
   "description": "Prevent auto-pause, keep YouTube & YouTube Music nonstop",
   "author": "nvbangg (https://github.com/nvbangg)",
-  "homepage_url": "https://github.com/nvbangg/nvbangg-tools",
+  "homepage_url": "https://github.com/nvbangg/YouTube_YTMusic_Nonstop",
   
   "host_permissions": [
     "*://*.youtube.com/*"
