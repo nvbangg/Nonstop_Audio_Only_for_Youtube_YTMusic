@@ -7,9 +7,9 @@ This extension prevents YouTube and YouTube Music from auto-pausing due to inact
 
 # Installation:
 
-- Install the extension from Chrome Web Store: [YouTube™ YTMusic™ Nonstop]()
+- Install the extension from Chrome Web Store: [YouTube™ YTMusic™ Nonstop](https://chromewebstore.google.com/detail/youtube-ytmusic-nonstop/bobdimbkbnkabpfhdfbddjoppiohcodi)
 
-- Or install via user script from [Greasyfork]()
+- Or install via user script from [Greasyfork](https://greasyfork.org/vi/scripts/546130-youtube-ytmusic-nonstop)
 
 ![Demo](image/demo.png)
 
