@@ -11,7 +11,7 @@ This extension prevents YouTube and YouTube Music from auto-pausing due to inact
 
 - Or install via user script from [Greasyfork](https://greasyfork.org/vi/scripts/546130-youtube-ytmusic-nonstop)
 
-![Demo](https://raw.githubusercontent.com/nvbangg/YouTube_YTMusic_Nonstop/main/image/demo.png)
+![Demo](https://raw.githubusercontent.com/nvbangg/YouTube_YTMusic_Nonstop/main/demo/demo.png)
 
 <div align="center">
     <a href="https://github.com/nvbangg"><img src="https://img.shields.io/github/followers/nvbangg?label=Follow%20my%20GitHub&logo=github" height="23" style="margin-right:10px; border-radius:10px;"></a>

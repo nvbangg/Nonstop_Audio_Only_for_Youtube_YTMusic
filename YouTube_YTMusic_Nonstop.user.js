@@ -6,7 +6,7 @@
 // @author       nvbangg (https://github.com/nvbangg)
 // @copyright    Copyright (c) 2025 Nguyễn Văn Bằng (nvbangg, github.com/nvbangg)
 // @homepage     https://github.com/nvbangg/YouTube_YTMusic_Nonstop
-// @icon         https://raw.githubusercontent.com/nvbangg/YouTube_YTMusic_Nonstop/main/icon.png
+// @icon         https://raw.githubusercontent.com/nvbangg/YouTube_YTMusic_Nonstop/main/src/icon.png
 // @match        *://*.youtube.com/*
 // @run-at       document-start
 // @grant        none
