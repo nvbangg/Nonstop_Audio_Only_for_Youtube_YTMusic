@@ -1,16 +1,13 @@
 body {
   margin: 0;
-  font-size: 16px;
+  font: 500 16px/1.3 system-ui;
   color: black;
   background: snow;
 }
 
 .popup {
-  width: 340px;
+  width: 320px;
   padding: 15px;
-  display: grid;
-  gap: 10px;
-  font-weight: 500;
   text-align: center;
 }
 
@@ -18,57 +15,43 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid LightGray;
+  padding-bottom: 10px;
+  text-align: center;
 }
 
 .header img {
-  width: 32px;
-  height: 32px;
+  width: 48px;
+  height: 48px;
 }
 
 .header h1 {
   margin: 0;
-  font-size: 17px;
-  font-weight: 600;
-  color: #cc0000;
-  line-height: 1.3;
+  font: 700 20px/1.3 system-ui;
+  color: red;
+  max-width: 230px;
 }
 
-.main-option {
-  display: grid;
-  gap: 10px;
-  padding: 8px 0;
-}
-
-.option-item {
+.option {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 16px;
-  padding: 12px 12px;
-  border-radius: 10px;
+  gap: 20px;
+  padding: 10px;
+  border-radius: 20px;
+  margin: 5px 0;
+  border-top: 1px solid lightgray;
+}
+.option:hover {
+  background: #e7f2ff;
 }
 
-.option-item span {
-  font-weight: 500;
-  font-size: 16px;
-}
-
-.option-item:hover {
-  background: #f0f0f0;
-}
-
-.toggle-switch {
+.switch {
   position: relative;
   width: 48px;
   height: 24px;
   cursor: pointer;
-  flex-shrink: 0;
 }
-
-.toggle-input {
+.switch input {
   position: absolute;
   inset: 0;
   opacity: 0;
@@ -76,15 +59,14 @@ body {
   cursor: pointer;
 }
 
-.toggle-slider {
+.slider {
   position: absolute;
   inset: 0;
   border-radius: 24px;
-  background: #ccc;
+  background: lightgray;
   transition: background-color 0.2s;
 }
-
-.toggle-slider::before {
+.slider::before {
   content: "";
   position: absolute;
   width: 18px;
@@ -96,65 +78,63 @@ body {
   transition: transform 0.2s;
 }
 
-.toggle-input:checked + .toggle-slider {
-  background: #00d500;
+input:checked + .slider {
+  background: lime;
 }
-
-.toggle-input:checked + .toggle-slider::before {
+input:checked + .slider::before {
   transform: translateX(24px);
 }
 
 .settings {
   padding-top: 10px;
-  border-top: 1px solid LightGray;
 }
-
 .settings-header {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 10px 12px;
-  background-color: AliceBlue;
+  gap: 10px;
+  padding: 10px;
+  background: bisque;
   cursor: pointer;
-  border-radius: 8px;
-  font-weight: 500;
-  color: #424242;
-  transition: all 0.2s;
+  border-radius: 20px;
 }
-
-.settings-header:hover {
-  background-color: #d4e7ff;
-}
-
 .settings-header svg {
-  transition: transform 0.3s ease;
-}
-
-.settings-expanded svg {
-  transform: rotate(180deg);
+  transition: transform 0.3s;
 }
 
 #settings-content {
   overflow: hidden;
-  transition: max-height 0.3s ease;
+  transition: max-height 0.3s;
+}
+#settings-content .option {
+  justify-content: space-between;
+  padding: 10px 15px;
+}
+#settings-content .option:first-child {
   margin-top: 10px;
 }
 
-.settings-collapsed {
-  max-height: 0;
-  margin-top: 0;
-}
-
-.settings-expanded {
+.expanded {
   max-height: 500px;
 }
-
-#settings-content .option-item {
-  justify-content: space-between;
+.expanded svg {
+  transform: rotate(180deg);
+}
+.collapsed {
+  max-height: 0;
 }
 
-#settings-content .option-item span {
-  font-size: 15px;
-  text-align: left;
+.footer {
+  display: inline-block;
+  padding: 8px 16px;
+  background: lightpink;
+  margin-top: 10px;
+  border-radius: 20px;
+  color: dodgerblue;
+  text-decoration: none;
+  transition: transform 0.2s, color 0.2s;
+}
+.footer:hover {
+  transform: translateY(-1px);
+  color: royalblue;
 }

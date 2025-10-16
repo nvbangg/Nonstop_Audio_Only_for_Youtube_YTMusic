@@ -1,85 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nonstop Audio Only for Youtube YTMusic</title>
+    <title>Nonstop Audio Only</title>
     <link rel="stylesheet" href="popup.css" />
   </head>
   <body>
-    <main class="popup">
+    <div class="popup">
       <div class="header">
-        <img src="../icon.png" alt="Nonstop Audio Only" />
-        <h1>Nonstop Audio Only for Youtube YTMusic</h1>
+        <img src="../icon.png" alt="Icon" />
+        <h1>Nonstop & Audio Only for Youtube YTMusic</h1>
       </div>
-
-      <section class="main-option">
-        <div class="option-item">
-          <span>Audio only for this tab</span>
-          <label class="toggle-switch" for="tab-toggle">
-            <input type="checkbox" id="tab-toggle" class="toggle-input" />
-            <span class="toggle-slider"></span>
-          </label>
-        </div>
-      </section>
-
-      <section class="settings">
+      <div class="option">
+        <span>Audio only for this tab</span>
+        <label class="switch">
+          <input type="checkbox" id="tab-toggle" />
+          <span class="slider"></span>
+        </label>
+      </div>
+      <div class="settings">
         <div class="settings-header" id="settings-toggle">
-          <span>Settings</span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            viewBox="0 0 16 16"
-          >
+          <span>Default Settings</span>
+          <svg width="16" height="16" viewBox="0 0 16 16">
             <path
-              fill-rule="evenodd"
               d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
             />
           </svg>
         </div>
-        <div id="settings-content" class="settings-collapsed">
-          <div class="option-item">
-            <span>Audio only on YouTube by default</span>
-            <label class="toggle-switch" for="youtube-toggle">
-              <input
-                type="checkbox"
-                id="youtube-toggle"
-                name="youtube_video"
-                class="toggle-input setting-checkbox"
-              />
-              <span class="toggle-slider"></span>
+        <div id="settings-content" class="collapsed">
+          <div class="option">
+            <span>Audio only on YouTube</span>
+            <label class="switch">
+              <input type="checkbox" name="youtube_video" class="setting" />
+              <span class="slider"></span>
             </label>
           </div>
-          <div class="option-item">
-            <span>Audio only on YouTube Music by default</span>
-            <label class="toggle-switch" for="ytmusic-toggle">
+          <div class="option">
+            <span>Audio only on YouTube Music</span>
+            <label class="switch">
               <input
                 type="checkbox"
-                id="ytmusic-toggle"
                 name="youtube_music_video"
-                class="toggle-input setting-checkbox"
+                class="setting"
               />
-              <span class="toggle-slider"></span>
+              <span class="slider"></span>
             </label>
           </div>
-          <div class="option-item">
-            <span>Disable continue watching prompt</span>
-            <label class="toggle-switch" for="prompt-toggle">
+          <div class="option">
+            <span>Youtube YTMusic Nonstop</span>
+            <label class="switch">
               <input
                 type="checkbox"
-                id="prompt-toggle"
                 name="continue_watching_prompt"
-                class="toggle-input setting-checkbox"
+                class="setting"
               />
-              <span class="toggle-slider"></span>
+              <span class="slider"></span>
             </label>
           </div>
         </div>
-      </section>
-    </main>
-
+      </div>
+      <a
+        class="footer"
+        href="https://github.com/nvbangg/Nonstop_Audio_Only_for_Youtube_YTMusic"
+        target="_blank"
+        >🏠 Homepage</a
+      >
+    </div>
     <script src="popup.js"></script>
   </body>
 </html>
