@@ -1,12 +1,9 @@
 {
   "manifest_version": 3,
   "name": "Nonstop & Audio Only for Youtube YTMusic",
-  "short_name": "Nonstop Audio Only",
   "version": "1.1",
-  "incognito": "spanning",
 
-  "description": "Hides the video and thumbnails on YouTube. Blocks the video keeping only the audio on YouTube Music.",
-  "offline_enabled": true,
+  "description": "Playing Nonstop & Audio Only on YouTube & YouTube Music",
   "icons": {
     "16": "icon.png",
     "48": "icon.png",
@@ -24,15 +21,14 @@
     }
   ],
   "action": {
-    "default_title": "Nonstop Audio Only for YouTube YTMusic",
+    "default_title": "Nonstop & Audio Only for Youtube YTMusic",
     "default_popup": "popup/popup.html"
   },
   "content_scripts": [
     {
       "matches": ["*://www.youtube.com/*", "*://music.youtube.com/*"],
       "js": ["content.js"],
-      "run_at": "document_start",
-      "all_frames": true
+      "run_at": "document_start"
     }
   ]
 }
