@@ -35,7 +35,14 @@ async function init() {
   };
 
   document.querySelectorAll(".setting").forEach((el) => {
-    el.onchange = () => chrome.storage.local.set({ [el.name]: el.checked });
+    el.onchange = () => {
+      chrome.storage.local.set({ [el.name]: el.checked });
+      chrome.tabs.sendMessage(
+        tabId,
+        { data: 1 },
+        () => chrome.runtime.lastError
+      );
+    };
   });
 
   settings.onclick = () => {

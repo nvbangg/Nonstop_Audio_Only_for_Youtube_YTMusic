@@ -6,7 +6,7 @@ body {
 }
 
 .popup {
-  width: 320px;
+  width: 350px;
   padding: 15px;
   text-align: center;
 }
@@ -126,8 +126,8 @@ input:checked + .slider::before {
 
 .footer {
   display: inline-block;
-  padding: 8px 16px;
-  background: lightpink;
+  padding: 5px 10px;
+  background: MistyRose;
   margin-top: 10px;
   border-radius: 20px;
   color: dodgerblue;
@@ -137,4 +137,12 @@ input:checked + .slider::before {
 .footer:hover {
   transform: translateY(-1px);
   color: royalblue;
+}
+
+.footer-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
 }

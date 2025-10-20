@@ -10,10 +10,9 @@ function injectElement(tag, id, attrs = {}) {
   document.documentElement.appendChild(el);
 }
 
-function toggleFeature(enabled, continuePrompt) {
+function toggleFeature(enabled) {
   sessionStorage.setItem("youtube_nonstop_video_blocked", enabled);
   if (enabled) {
-    sessionStorage.setItem("youtube_nonstop_continue_prompt", continuePrompt);
     injectElement("script", "youtube_nonstop_video_handler", {
       src: chrome.runtime.getURL("video_handler.js"),
     });
@@ -46,7 +45,16 @@ async function apply() {
       : values.youtube_video;
     const enabled = values.sstabs?.[response.id]?.enabled ?? defaultEnabled;
 
-    toggleFeature(enabled, values.continue_watching_prompt);
+    toggleFeature(enabled);
+
+    const nonstop = isYTMusic
+      ? values.youtube_music_nonstop
+      : values.youtube_nonstop;
+    if (nonstop) {
+      injectElement("script", "youtube_nonstop_inject", {
+        src: chrome.runtime.getURL("nonstop_inject.js"),
+      });
+    }
   } catch {}
 }
 

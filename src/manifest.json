@@ -1,9 +1,9 @@
 {
   "manifest_version": 3,
   "name": "Nonstop & Audio Only for Youtube YTMusic",
-  "version": "1.1",
-
+  "version": "1.2",
   "description": "Playing Nonstop & Audio Only on YouTube & YouTube Music",
+  "homepage_url": "https://chromewebstore.google.com/detail/nonstop-audio-only-for-yo/bobdimbkbnkabpfhdfbddjoppiohcodi",
   "icons": {
     "16": "icon.png",
     "48": "icon.png",
@@ -16,7 +16,7 @@
   "host_permissions": ["*://www.youtube.com/*", "*://music.youtube.com/*"],
   "web_accessible_resources": [
     {
-      "resources": ["video_handler.js"],
+      "resources": ["video_handler.js", "nonstop_inject.js"],
       "matches": ["*://www.youtube.com/*", "*://music.youtube.com/*"]
     }
   ],

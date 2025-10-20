@@ -1,7 +1,8 @@
 const DEFAULT_OPTIONS = {
   youtube_video: false,
   youtube_music_video: true,
-  continue_watching_prompt: true,
+  youtube_nonstop: true,
+  youtube_music_nonstop: true,
 };
 
 let activeTabs = [];
@@ -25,6 +26,11 @@ async function initOptions() {
     if (stored.enabled !== undefined) {
       stored.youtube_video = stored.youtube_music_video = stored.enabled;
       delete stored.enabled;
+    }
+    if (stored.continue_watching_prompt !== undefined) {
+      stored.youtube_nonstop = stored.continue_watching_prompt;
+      stored.youtube_music_nonstop = stored.continue_watching_prompt;
+      delete stored.continue_watching_prompt;
     }
     Object.keys(DEFAULT_OPTIONS).forEach((key) => {
       if (

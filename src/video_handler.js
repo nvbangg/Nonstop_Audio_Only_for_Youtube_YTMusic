@@ -1,4 +1,3 @@
-let intervalId;
 let blockVideo =
   sessionStorage.getItem("youtube_nonstop_video_blocked") === "true";
 
@@ -76,17 +75,6 @@ function init() {
   blockVideo = getVal("youtube_nonstop_video_blocked");
   updateBackground();
   if (!blockVideo) restoreVideo();
-
-  const continuePrompt = getVal("youtube_nonstop_continue_prompt");
-  if (continuePrompt && !intervalId) {
-    intervalId = setInterval(
-      () => getPlayer()?.updateLastActiveTime(),
-      5 * 60 * 1000
-    );
-  } else if (!continuePrompt && intervalId) {
-    clearInterval(intervalId);
-    intervalId = null;
-  }
 }
 
 document.addEventListener("injection_script_communication", init);
