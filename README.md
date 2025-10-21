@@ -22,5 +22,5 @@ Playing Nonstop & Audio Only on YouTube & YouTube Music
     <a href="https://github.com/nvbangg/Nonstop_Audio_Only_for_Youtube_YTMusic"><img src="https://img.shields.io/github/stars/nvbangg/Nonstop_Audio_Only_for_Youtube_YTMusic?label=Star%20this%20repo&logo=github"></a>
     <img src="https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Fgithub.com%2Fnvbangg%2FNonstop_Audio_Only_for_Youtube_YTMusic&countColor=blue&textColor=000000" height="20">
     <br>
-    <img src="https://nvbangg.github.io/assets/gifs/follow_star_github.gif" height="150">
+    <img src="https://nvbangg.github.io/assets/gifs/follow_star_github.gif" height="100">
 </div>
