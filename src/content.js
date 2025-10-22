@@ -40,9 +40,16 @@ async function apply() {
     );
 
     const values = await chrome.storage.local.get(null);
-    const defaultEnabled = isYTMusic
+    const baseDefault = isYTMusic
       ? values.youtube_music_video
       : values.youtube_video;
+    let defaultEnabled = baseDefault;
+    if (!baseDefault) {
+      const tokens = (values.audio_only_tokens || []).filter(Boolean);
+      if (tokens.length) {
+        defaultEnabled = urlMatchesTokens(location.href, tokens);
+      }
+    }
     const enabled = values.sstabs?.[response.id]?.enabled ?? defaultEnabled;
 
     toggleFeature(enabled);
@@ -58,5 +65,25 @@ async function apply() {
   } catch {}
 }
 
-chrome.runtime.onMessage.addListener(() => apply());
+chrome.runtime.onMessage.addListener(apply);
 apply();
+
+function urlMatchesTokens(url, tokens) {
+  if (!tokens.length) return false;
+  const lower = String(url).toLowerCase();
+  const normalized = lower.replace(/&/g, "?");
+  const stripped = lower.replace(/^https?:\/\//, "").replace(/^www\./, "");
+  const strippedNorm = normalized
+    .replace(/^https?:\/\//, "")
+    .replace(/^www\./, "");
+  return tokens.some((raw) => {
+    const p = String(raw).trim().toLowerCase();
+    if (!p) return false;
+    return (
+      lower.includes(p) ||
+      normalized.includes(p) ||
+      stripped.includes(p) ||
+      strippedNorm.includes(p)
+    );
+  });
+}

@@ -8,7 +8,7 @@ const getPlayer = () => findVideo()?.parentNode?.parentNode;
 function findVideo() {
   const videos = document.querySelectorAll("video");
   if (!isYTMusic()) {
-    for (let v of videos) {
+    for (const v of videos) {
       const rect = v.getBoundingClientRect();
       if (rect.width > 0 && rect.height > 0) return v;
     }
@@ -61,7 +61,6 @@ function restoreVideo() {
   const video = findVideo();
   if (!video || !video.src.includes("mime=audio")) return;
 
-  delete video.dataset.musicurl;
   const time = video.currentTime || 0;
   video.removeAttribute("src");
   video.load();
@@ -127,14 +126,12 @@ function setAudioSrc(video, url) {
   if (video.src === newUrl || !blockVideo) return;
 
   updateBackground();
-  video.dataset.musicurl = newUrl;
-  video.dataset.originalurl = video.src;
 
   const time = video.currentTime || 0;
   if (!video.paused) video.pause();
 
   new MutationObserver((mutations) => {
-    for (let m of mutations) {
+    for (const m of mutations) {
       if (
         m.target.nodeName === "VIDEO" &&
         (!m.target.src || m.target.src === "")

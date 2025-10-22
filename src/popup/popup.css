@@ -6,7 +6,7 @@ body {
 }
 
 .popup {
-  width: 350px;
+  width: 300px;
   padding: 15px;
   text-align: center;
 }
@@ -18,12 +18,10 @@ body {
   padding-bottom: 10px;
   text-align: center;
 }
-
 .header img {
   width: 48px;
   height: 48px;
 }
-
 .header h1 {
   margin: 0;
   font: 700 20px/1.3 system-ui;
@@ -35,8 +33,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 20px;
-  padding: 10px;
+  font-size: 18px;
+  gap: 10px;
+  padding: 15px;
   border-radius: 20px;
   margin: 5px 0;
   border-top: 1px solid lightgray;
@@ -55,7 +54,6 @@ body {
   position: absolute;
   inset: 0;
   opacity: 0;
-  margin: 0;
   cursor: pointer;
 }
 
@@ -85,64 +83,30 @@ input:checked + .slider::before {
   transform: translateX(24px);
 }
 
-.settings {
-  padding-top: 10px;
-}
-.settings-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.footer-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 10px;
-  padding: 10px;
-  background: bisque;
-  cursor: pointer;
-  border-radius: 20px;
-}
-.settings-header svg {
-  transition: transform 0.3s;
+  margin-top: 15px;
 }
 
-#settings-content {
-  overflow: hidden;
-  transition: max-height 0.3s;
-}
-#settings-content .option {
-  justify-content: space-between;
+.footer-button {
   padding: 10px 15px;
-}
-#settings-content .option:first-child {
-  margin-top: 10px;
-}
-
-.expanded {
-  max-height: 500px;
-}
-.expanded svg {
-  transform: rotate(180deg);
-}
-.collapsed {
-  max-height: 0;
-}
-
-.footer {
-  display: inline-block;
-  padding: 5px 10px;
-  background: MistyRose;
-  margin-top: 10px;
+  background: mistyrose;
   border-radius: 20px;
   color: dodgerblue;
   text-decoration: none;
+  border: none;
+  cursor: pointer;
   transition: transform 0.2s, color 0.2s;
+  text-align: center;
 }
-.footer:hover {
-  transform: translateY(-1px);
+.footer-button:hover {
+  transform: translateY(-2px);
   color: royalblue;
 }
 
-.footer-row {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
+#homepage-btn,
+#settings-btn {
+  background: bisque;
 }

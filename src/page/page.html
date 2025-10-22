@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Nonstop Audio Only - Settings</title>
+  <link rel="stylesheet" href="page.css" />
+</head>
+
+<body>
+  <div class="page-container">
+    <div class="header">
+      <img src="../icon.png" alt="Icon" />
+      <h1>Nonstop & Audio Only for Youtube YTMusic</h1>
+    </div>
+    <div class="page-title">
+      <h2>Default Settings</h2>
+    </div>
+    <div class="option">
+      <span>Audio only on YouTube</span>
+      <label class="switch">
+        <input type="checkbox" name="youtube_video" class="setting" />
+        <span class="slider"></span>
+      </label>
+    </div>
+    <div class="option">
+      <span>Audio only on YouTube Music</span>
+      <label class="switch">
+        <input type="checkbox" name="youtube_music_video" class="setting" />
+        <span class="slider"></span>
+      </label>
+    </div>
+    <div class="option column">
+      <span>Default audio only for specific videos/playlists</span>
+      <div class="textarea-wrapper">
+        <textarea id="audio_only_patterns" wrap="off" spellcheck="false"></textarea>
+        <div id="ghost-placeholder"></div>
+      </div>
+    </div>
+    <div class="option">
+      <span>Nonstop on YouTube</span>
+      <label class="switch">
+        <input type="checkbox" name="youtube_nonstop" class="setting" />
+        <span class="slider"></span>
+      </label>
+    </div>
+    <div class="option">
+      <span>Nonstop on YouTube Music</span>
+      <label class="switch">
+        <input type="checkbox" name="youtube_music_nonstop" class="setting" />
+        <span class="slider"></span>
+      </label>
+    </div>
+  </div>
+  <script src="page.js"></script>
+</body>
+
+</html>

@@ -4,28 +4,30 @@ chrome.tabs.query({ active: true, currentWindow: true }, ([tab]) => {
   if (!tab) return;
   tabId = tab.id;
   tabUrl = tab.url || "";
-  tabUrl.includes("youtube.com")
-    ? init()
-    : (document.body.innerHTML =
-        '<div style="padding:20px;text-align:center">Not a YouTube page</div>');
+  init();
 });
 
 async function init() {
   const data = await chrome.storage.local.get(null);
   const sstabs = data.sstabs || {};
   const isYTMusic = tabUrl.includes("music.youtube.com");
-  const enabled =
-    sstabs[tabId]?.enabled ??
-    (isYTMusic ? data.youtube_music_video : data.youtube_video);
+  const baseDefault = isYTMusic ? data.youtube_music_video : data.youtube_video;
+  let defaultEnabled = baseDefault;
+  if (!baseDefault) {
+    const tokens = (data.audio_only_tokens || []).filter(Boolean);
+    if (tokens.length) {
+      defaultEnabled = urlMatchesTokens(tabUrl, tokens);
+    }
+  }
+  const enabled = sstabs[tabId]?.enabled ?? defaultEnabled;
 
   const tabToggle = document.getElementById("tab-toggle");
-  const settings = document.getElementById("settings-toggle");
-  const content = document.getElementById("settings-content");
+  const tabOption = document.getElementById("tab-option");
+  const isYT = tabUrl.includes("youtube.com");
+  if (!isYT && tabOption) tabOption.style.display = "none";
+  const settingsBtn = document.getElementById("settings-btn");
 
   tabToggle.checked = enabled;
-  document
-    .querySelectorAll(".setting")
-    .forEach((el) => (el.checked = !!data[el.name]));
 
   tabToggle.onchange = async () => {
     const { sstabs = {} } = await chrome.storage.local.get("sstabs");
@@ -34,20 +36,27 @@ async function init() {
     chrome.tabs.sendMessage(tabId, { data: 1 }, () => chrome.runtime.lastError);
   };
 
-  document.querySelectorAll(".setting").forEach((el) => {
-    el.onchange = () => {
-      chrome.storage.local.set({ [el.name]: el.checked });
-      chrome.tabs.sendMessage(
-        tabId,
-        { data: 1 },
-        () => chrome.runtime.lastError
-      );
-    };
-  });
-
-  settings.onclick = () => {
-    settings.classList.toggle("expanded");
-    content.classList.toggle("collapsed");
-    content.classList.toggle("expanded");
+  settingsBtn.onclick = () => {
+    chrome.tabs.create({ url: chrome.runtime.getURL("page/page.html") });
   };
+}
+
+function urlMatchesTokens(url, tokens) {
+  if (!tokens.length) return false;
+  const lower = String(url).toLowerCase();
+  const normalized = lower.replace(/&/g, "?");
+  const stripped = lower.replace(/^https?:\/\//, "").replace(/^www\./, "");
+  const strippedNorm = normalized
+    .replace(/^https?:\/\//, "")
+    .replace(/^www\./, "");
+  return tokens.some((raw) => {
+    const p = String(raw).trim().toLowerCase();
+    if (!p) return false;
+    return (
+      lower.includes(p) ||
+      normalized.includes(p) ||
+      stripped.includes(p) ||
+      strippedNorm.includes(p)
+    );
+  });
 }

@@ -68,7 +68,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   const isYTMusic = url.includes("music.youtube.com");
 
   if (isYT) {
-    handleYouTubeTab(tabId, isYTMusic);
+    handleYouTubeTab(tabId, isYTMusic, url);
     chrome.tabs.sendMessage(tabId, { data: 2 }, () => chrome.runtime.lastError);
   } else {
     activeTabs = activeTabs.filter((id) => id !== tabId);
@@ -76,11 +76,18 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   }
 });
 
-async function handleYouTubeTab(tabId, isYTMusic) {
+async function handleYouTubeTab(tabId, isYTMusic, url) {
   const stored = await chrome.storage.local.get(null);
-  const defaultEnabled = isYTMusic
+  const baseDefault = isYTMusic
     ? stored.youtube_music_video
     : stored.youtube_video;
+  let defaultEnabled = baseDefault;
+  if (!baseDefault) {
+    const tokens = (stored.audio_only_tokens || []).filter(Boolean);
+    if (tokens.length) {
+      defaultEnabled = urlMatchesTokens(url, tokens);
+    }
+  }
   const enabled = stored.sstabs?.[tabId]?.enabled ?? defaultEnabled;
 
   const isActive = activeTabs.includes(tabId);
@@ -118,6 +125,26 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     return true;
   }
   if (request.funct === 1) {
-    handleYouTubeTab(sender.tab.id, request.isYTMusic);
+    handleYouTubeTab(sender.tab.id, request.isYTMusic, sender.tab.url || "");
   }
 });
+
+function urlMatchesTokens(url, tokens) {
+  if (!tokens.length) return false;
+  const lower = String(url).toLowerCase();
+  const normalized = lower.replace(/&/g, "?");
+  const stripped = lower.replace(/^https?:\/\//, "").replace(/^www\./, "");
+  const strippedNorm = normalized
+    .replace(/^https?:\/\//, "")
+    .replace(/^www\./, "");
+  return tokens.some((raw) => {
+    const p = String(raw).trim().toLowerCase();
+    if (!p) return false;
+    return (
+      lower.includes(p) ||
+      normalized.includes(p) ||
+      stripped.includes(p) ||
+      strippedNorm.includes(p)
+    );
+  });
+}
