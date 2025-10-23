@@ -7,6 +7,8 @@ Playing Nonstop & Audio Only on YouTube & YouTube Music
 - 🚫 No more “Video Paused. Continue watching?” popups
 - 🎵 Keeps videos and music playing nonstop, even when switching to another tab or app
 - 🎧 Switch to Audio-only mode to hide video and focus on sound or music
+- ⚡ Blocks video loading to save internet data and speed up audio/music loading
+- ⚙️ Flexibly enable for playlists, videos, or specific tabs
 
 ## ⬇️ Installation:
 
@@ -24,6 +26,7 @@ Playing Nonstop & Audio Only on YouTube & YouTube Music
 
 <br> 
 
+![Demo](https://raw.githubusercontent.com/nvbangg/Nonstop_Audio_Only_for_Youtube_YTMusic/main/demo/demo.png)
 ![Demo1](https://raw.githubusercontent.com/nvbangg/Nonstop_Audio_Only_for_Youtube_YTMusic/main/demo/demo1.png)
 ![Demo2](https://raw.githubusercontent.com/nvbangg/Nonstop_Audio_Only_for_Youtube_YTMusic/main/demo/demo2.png)
 
