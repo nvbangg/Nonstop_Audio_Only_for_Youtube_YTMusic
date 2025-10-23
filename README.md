@@ -12,7 +12,7 @@ Playing Nonstop & Audio Only on YouTube & YouTube Music
 
 ## ⬇️ Installation:
 
-- 🌐 Install from **Chrome Web Store**: [Nonstop_Audio_Only_for_Youtube_YTMusic](https://chromewebstore.google.com/detail/nonstop-audio-only-for-yo/bobdimbkbnkabpfhdfbddjoppiohcodi)
+- 🌐 Install from **Chrome Web Store**: [![Available in the Chrome Web Store](https://nvbangg.github.io/assets/images/chrome_webstore.png)](https://chromewebstore.google.com/detail/nonstop-audio-only-for-yo/bobdimbkbnkabpfhdfbddjoppiohcodi)
 
 - Or install via user script from [Greasyfork](https://greasyfork.org/vi/scripts/546130-youtube-ytmusic-nonstop) (v1.0 only)
   
@@ -30,4 +30,10 @@ Playing Nonstop & Audio Only on YouTube & YouTube Music
 ![Demo1](https://raw.githubusercontent.com/nvbangg/Nonstop_Audio_Only_for_Youtube_YTMusic/main/demo/demo1.png)
 ![Demo2](https://raw.githubusercontent.com/nvbangg/Nonstop_Audio_Only_for_Youtube_YTMusic/main/demo/demo2.png)
 
+---
 
+## 📄 License & Privacy Policy
+
+- Copyright (c) 2025 Nguyễn Văn Bằng (nvbangg, [github.com/nvbangg](https://github.com/nvbangg))
+- Licensed under the [GNU General Public License v3.0](./LICENSE)  
+- View the [Privacy Policy](./PRIVACY_POLICY.md)
