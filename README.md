@@ -2,6 +2,8 @@
 
 Playing Nonstop & Audio Only on YouTube & YouTube Music
 
+[![Available in the Chrome Web Store](https://nvbangg.github.io/assets/images/chrome_webstore.png)](https://chromewebstore.google.com/detail/nonstop-audio-only-for-yo/bobdimbkbnkabpfhdfbddjoppiohcodi)
+
 ## 📌 Introduction
 
 - 🚫 No more “Video Paused. Continue watching?” popups
@@ -12,8 +14,7 @@ Playing Nonstop & Audio Only on YouTube & YouTube Music
 
 ## ⬇️ Installation:
 
-- 🌐 Install from **Chrome Web Store**: [![Available in the Chrome Web Store](https://nvbangg.github.io/assets/images/chrome_webstore.png)](https://chromewebstore.google.com/detail/nonstop-audio-only-for-yo/bobdimbkbnkabpfhdfbddjoppiohcodi)
-
+- 🌐 Install from **Chrome Web Store**: [Nonstop & Audio Only for Youtube YTMusic](https://chromewebstore.google.com/detail/nonstop-audio-only-for-yo/bobdimbkbnkabpfhdfbddjoppiohcodi)
 - Or install via user script from [Greasyfork](https://greasyfork.org/vi/scripts/546130-youtube-ytmusic-nonstop) (v1.0 only)
   
 <div align="center">
