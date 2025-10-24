@@ -1,6 +1,7 @@
 # Nonstop & Audio Only for Youtube YTMusic
 
-Playing Nonstop & Audio Only on YouTube & YouTube Music
+> [!NOTE]
+> Playing Nonstop & Audio Only on YouTube & YouTube Music
 
 [![Available in the Chrome Web Store](https://nvbangg.github.io/assets/images/chrome_webstore.png)](https://chromewebstore.google.com/detail/nonstop-audio-only-for-yo/bobdimbkbnkabpfhdfbddjoppiohcodi)
 
@@ -15,7 +16,10 @@ Playing Nonstop & Audio Only on YouTube & YouTube Music
 ## ⬇️ Installation:
 
 - 🌐 Install from **Chrome Web Store**: [Nonstop & Audio Only for Youtube YTMusic](https://chromewebstore.google.com/detail/nonstop-audio-only-for-yo/bobdimbkbnkabpfhdfbddjoppiohcodi)
-- Or install via user script from [Greasyfork](https://greasyfork.org/vi/scripts/546130-youtube-ytmusic-nonstop) (v1.0 only)
+    - Or install via user script from [Greasyfork](https://greasyfork.org/vi/scripts/546130-youtube-ytmusic-nonstop) (v1.0 only)
+    
+> [!IMPORTANT]
+> Recommended to use together with [uBlock Origin Lite](https://chromewebstore.google.com/detail/ublock-origin-lite/ddkjiahejlhfcafbddmgiahcphecmpfh) and [SponsorBlock for YouTube](https://chromewebstore.google.com/detail/sponsorblock-for-youtube/mnjggcdmjocbbbhaepdhchncahnbgone) for the best experience.
   
 <div align="center">
     <a href="https://github.com/nvbangg"><img src="https://img.shields.io/github/followers/nvbangg?label=Follow%20my%20GitHub&logo=github"></a>
@@ -28,13 +32,14 @@ Playing Nonstop & Audio Only on YouTube & YouTube Music
 <br> 
 
 ![Demo](https://raw.githubusercontent.com/nvbangg/Nonstop_Audio_Only_for_Youtube_YTMusic/main/demo/demo.png)
-![Demo1](https://raw.githubusercontent.com/nvbangg/Nonstop_Audio_Only_for_Youtube_YTMusic/main/demo/demo1.png)
-![Demo2](https://raw.githubusercontent.com/nvbangg/Nonstop_Audio_Only_for_Youtube_YTMusic/main/demo/demo2.png)
 
 ---
+## 🔒 Privacy Policy
 
-## 📄 License & Privacy Policy
+- We do not collect or use any personal data from users
+- All user settings are stored locally in the user's browser
+
+## 📄 License
 
 - Copyright (c) 2025 Nguyễn Văn Bằng (nvbangg, [github.com/nvbangg](https://github.com/nvbangg))
-- Licensed under the [GNU General Public License v3.0](./LICENSE)  
-- View the [Privacy Policy](./PRIVACY_POLICY.md)
+- Licensed under the [GNU General Public License v3.0](./LICENSE) 
