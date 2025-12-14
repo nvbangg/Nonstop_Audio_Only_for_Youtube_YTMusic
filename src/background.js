@@ -8,8 +8,7 @@ const DEFAULT_OPTIONS = {
 let activeTabs = [];
 
 chrome.runtime.onInstalled.addListener((details) => {
-  const isBrowserUpdate =
-    details.reason === "browser_update" || details.reason === "chrome_update";
+  const isBrowserUpdate = details.reason === "browser_update" || details.reason === "chrome_update";
   isBrowserUpdate ? chrome.storage.local.set({ sstabs: {} }) : initOptions();
 });
 
@@ -33,19 +32,14 @@ async function initOptions() {
       delete stored.continue_watching_prompt;
     }
     Object.keys(DEFAULT_OPTIONS).forEach((key) => {
-      if (
-        stored[key] === undefined ||
-        typeof stored[key] !== typeof DEFAULT_OPTIONS[key]
-      ) {
+      if (stored[key] === undefined || typeof stored[key] !== typeof DEFAULT_OPTIONS[key]) {
         stored[key] = DEFAULT_OPTIONS[key];
       }
     });
     await chrome.storage.local.set(stored);
   }
 
-  chrome.management.getSelf((info) =>
-    chrome.storage.local.set({ version: info.version })
-  );
+  chrome.management.getSelf((info) => chrome.storage.local.set({ version: info.version }));
   updateRules();
 }
 
@@ -78,9 +72,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 
 async function handleYouTubeTab(tabId, isYTMusic, url) {
   const stored = await chrome.storage.local.get(null);
-  const baseDefault = isYTMusic
-    ? stored.youtube_music_video
-    : stored.youtube_video;
+  const baseDefault = isYTMusic ? stored.youtube_music_video : stored.youtube_video;
   let defaultEnabled = baseDefault;
   if (!baseDefault) {
     const tokens = (stored.audio_only_tokens || []).filter(Boolean);
@@ -134,17 +126,10 @@ function urlMatchesTokens(url, tokens) {
   const lower = String(url).toLowerCase();
   const normalized = lower.replace(/&/g, "?");
   const stripped = lower.replace(/^https?:\/\//, "").replace(/^www\./, "");
-  const strippedNorm = normalized
-    .replace(/^https?:\/\//, "")
-    .replace(/^www\./, "");
+  const strippedNorm = normalized.replace(/^https?:\/\//, "").replace(/^www\./, "");
   return tokens.some((raw) => {
     const p = String(raw).trim().toLowerCase();
     if (!p) return false;
-    return (
-      lower.includes(p) ||
-      normalized.includes(p) ||
-      stripped.includes(p) ||
-      strippedNorm.includes(p)
-    );
+    return lower.includes(p) || normalized.includes(p) || stripped.includes(p) || strippedNorm.includes(p);
   });
 }

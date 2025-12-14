@@ -46,17 +46,10 @@ function urlMatchesTokens(url, tokens) {
   const lower = String(url).toLowerCase();
   const normalized = lower.replace(/&/g, "?");
   const stripped = lower.replace(/^https?:\/\//, "").replace(/^www\./, "");
-  const strippedNorm = normalized
-    .replace(/^https?:\/\//, "")
-    .replace(/^www\./, "");
+  const strippedNorm = normalized.replace(/^https?:\/\//, "").replace(/^www\./, "");
   return tokens.some((raw) => {
     const p = String(raw).trim().toLowerCase();
     if (!p) return false;
-    return (
-      lower.includes(p) ||
-      normalized.includes(p) ||
-      stripped.includes(p) ||
-      strippedNorm.includes(p)
-    );
+    return lower.includes(p) || normalized.includes(p) || stripped.includes(p) || strippedNorm.includes(p);
   });
 }

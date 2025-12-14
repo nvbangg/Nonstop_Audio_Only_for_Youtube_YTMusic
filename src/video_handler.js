@@ -1,5 +1,4 @@
-let blockVideo =
-  sessionStorage.getItem("youtube_nonstop_video_blocked") === "true";
+let blockVideo = sessionStorage.getItem("youtube_nonstop_video_blocked") === "true";
 
 const isYTMusic = () => location.hostname.includes("music.youtube.com");
 const getVal = (key) => sessionStorage.getItem(key) === "true";
@@ -18,11 +17,7 @@ function findVideo() {
 
 async function getThumbnail() {
   try {
-    return (
-      getPlayer()
-        ?.getPlayerResponse()
-        .videoDetails.thumbnail.thumbnails.slice(-1)[0].url + "?noblocking=true"
-    );
+    return getPlayer()?.getPlayerResponse().videoDetails.thumbnail.thumbnails.slice(-1)[0].url + "?noblocking=true";
   } catch {}
 
   const videoId = new URL(location.href).searchParams.get("v");
@@ -116,11 +111,7 @@ function setAudioSrc(video, url) {
   const [base, query] = url.split("?");
   if (!query) return;
 
-  const params = query
-    .split(/[&;]/g)
-    .filter(
-      (p) => !["rn", "rbuf", "range", "ump"].some((k) => p.startsWith(k + "="))
-    );
+  const params = query.split(/[&;]/g).filter((p) => !["rn", "rbuf", "range", "ump"].some((k) => p.startsWith(k + "=")));
   const newUrl = `${base}?${params.join("&")}`;
 
   if (video.src === newUrl || !blockVideo) return;
@@ -132,11 +123,7 @@ function setAudioSrc(video, url) {
 
   new MutationObserver((mutations) => {
     for (const m of mutations) {
-      if (
-        m.target.nodeName === "VIDEO" &&
-        (!m.target.src || m.target.src === "")
-      )
-        retryPlay();
+      if (m.target.nodeName === "VIDEO" && (!m.target.src || m.target.src === "")) retryPlay();
     }
   }).observe(video, { attributes: true, attributeFilter: ["src"] });
 
@@ -151,10 +138,7 @@ function retryPlay() {
   const video = findVideo();
   if (!video) return setTimeout(retryPlay, 5000);
 
-  if (
-    video.offsetTop < 0 &&
-    video.parentNode?.parentNode?.id !== "inline-preview-player"
-  ) {
+  if (video.offsetTop < 0 && video.parentNode?.parentNode?.id !== "inline-preview-player") {
     setTimeout(() => {
       const v = findVideo();
       if (v && !v.src) getPlayer()?.playVideo();

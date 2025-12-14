@@ -1,36 +1,42 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Nonstop Audio Only</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <title>Nonstop Audio Only</title>
-  <link rel="stylesheet" href="popup.css" />
-</head>
-
-<body>
-  <div class="popup">
-    <div class="header">
-      <img src="../icon.png" alt="Icon" />
-      <h1>Nonstop & Audio Only for Youtube YTMusic</h1>
+  <body>
+    <div class="popup">
+      <div class="header">
+        <img src="../icon.png" alt="Icon" />
+        <h1>Nonstop & Audio Only for Youtube YTMusic</h1>
+      </div>
+      <div class="option" id="tab-option">
+        <span>Audio only for this tab</span>
+        <label class="toggle-btn">
+          <input type="checkbox" id="tab-toggle" />
+          <span class="toggle-track"></span>
+        </label>
+      </div>
+      <div class="footer-buttons">
+        <a
+          class="footer-button"
+          id="homepage-btn"
+          href="https://github.com/nvbangg/Nonstop_Audio_Only_for_Youtube_YTMusic"
+          target="_blank"
+          >🏠 Homepage</a
+        >
+        <a class="footer-button" id="settings-btn">⚙️ Settings</a>
+        <a
+          class="footer-button"
+          href="https://chromewebstore.google.com/detail/nonstop-audio-only-for-yo/bobdimbkbnkabpfhdfbddjoppiohcodi/reviews"
+          target="_blank"
+          >⭐ Review</a
+        >
+        <a class="footer-button" href="https://nvbangg.github.io/#donate" target="_blank">❤️ Donate</a>
+      </div>
     </div>
-    <div class="option" id="tab-option">
-      <span>Audio only for this tab</span>
-      <label class="switch">
-        <input type="checkbox" id="tab-toggle" />
-        <span class="slider"></span>
-      </label>
-    </div>
-    <div class="footer-buttons">
-      <a class="footer-button" id="homepage-btn"
-        href="https://github.com/nvbangg/Nonstop_Audio_Only_for_Youtube_YTMusic" target="_blank">🏠 Homepage</a>
-      <a class="footer-button" id="settings-btn">⚙️ Settings</a>
-      <a class="footer-button"
-        href="https://chromewebstore.google.com/detail/nonstop-audio-only-for-yo/bobdimbkbnkabpfhdfbddjoppiohcodi/reviews"
-        target="_blank">⭐ Review</a>
-      <a class="footer-button" href="https://nvbangg.github.io/#donate" target="_blank">❤️ Donate</a>
-    </div>
-  </div>
-  <script src="popup.js"></script>
-</body>
-
+    <script src="popup.js"></script>
+  </body>
 </html>

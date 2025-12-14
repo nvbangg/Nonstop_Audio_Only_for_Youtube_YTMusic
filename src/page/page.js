@@ -1,9 +1,7 @@
 async function init() {
   const data = await chrome.storage.local.get(null);
 
-  document
-    .querySelectorAll(".setting")
-    .forEach((el) => (el.checked = !!data[el.name]));
+  document.querySelectorAll(".setting").forEach((el) => (el.checked = !!data[el.name]));
 
   const patternsEl = document.getElementById("audio_only_patterns");
   const ghostEl = document.getElementById("ghost-placeholder");
@@ -27,9 +25,7 @@ async function init() {
   if (patternsEl) {
     patternsEl.oninput = async () => {
       const before = patternsEl.value;
-      const atEnd =
-        patternsEl.selectionStart === before.length &&
-        patternsEl.selectionEnd === before.length;
+      const atEnd = patternsEl.selectionStart === before.length && patternsEl.selectionEnd === before.length;
       if (before.length > 0 && !before.endsWith("\n") && atEnd) {
         const end = before.length;
         patternsEl.value = before + "\n";
@@ -54,8 +50,7 @@ async function init() {
     };
 
     patternsEl.onscroll = () => {
-      if (ghostEl)
-        ghostEl.style.transform = `translateY(${-patternsEl.scrollTop}px)`;
+      if (ghostEl) ghostEl.style.transform = `translateY(${-patternsEl.scrollTop}px)`;
     };
 
     patternsEl.onfocus = ensureTrailingBlank;
@@ -68,12 +63,8 @@ async function init() {
     const val = patternsEl.value;
     const lines = val.split(/\r?\n/);
     const lastIsEmpty = lines.length === 0 || lines[lines.length - 1] === "";
-    const prefixCount = lastIsEmpty
-      ? Math.max(0, lines.length - 1)
-      : lines.length;
-    const prefix = prefixCount
-      ? Array(prefixCount).fill("").join("\n") + "\n"
-      : "";
+    const prefixCount = lastIsEmpty ? Math.max(0, lines.length - 1) : lines.length;
+    const prefix = prefixCount ? Array(prefixCount).fill("").join("\n") + "\n" : "";
     ghostEl.textContent = prefix + "Enter video/playlist URLs line by line";
 
     ghostEl.style.top = patternsEl.offsetTop + "px";

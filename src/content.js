@@ -20,10 +20,9 @@ function toggleFeature(enabled) {
       textContent: CSS,
     });
   } else {
-    [
-      "youtube_nonstop_video_styles",
-      "youtube_nonstop_player_background",
-    ].forEach((id) => document.getElementById(id)?.remove());
+    ["youtube_nonstop_video_styles", "youtube_nonstop_player_background"].forEach((id) =>
+      document.getElementById(id)?.remove()
+    );
   }
   document.dispatchEvent(injectionEvent);
 }
@@ -34,15 +33,10 @@ async function apply() {
     if (!response) return;
 
     const isYTMusic = location.hostname.includes("music.youtube.com");
-    chrome.runtime.sendMessage(
-      { funct: 1, isYTMusic },
-      () => chrome.runtime.lastError
-    );
+    chrome.runtime.sendMessage({ funct: 1, isYTMusic }, () => chrome.runtime.lastError);
 
     const values = await chrome.storage.local.get(null);
-    const baseDefault = isYTMusic
-      ? values.youtube_music_video
-      : values.youtube_video;
+    const baseDefault = isYTMusic ? values.youtube_music_video : values.youtube_video;
     let defaultEnabled = baseDefault;
     if (!baseDefault) {
       const tokens = (values.audio_only_tokens || []).filter(Boolean);
@@ -54,9 +48,7 @@ async function apply() {
 
     toggleFeature(enabled);
 
-    const nonstop = isYTMusic
-      ? values.youtube_music_nonstop
-      : values.youtube_nonstop;
+    const nonstop = isYTMusic ? values.youtube_music_nonstop : values.youtube_nonstop;
     if (nonstop) {
       injectElement("script", "youtube_nonstop_inject", {
         src: chrome.runtime.getURL("nonstop_inject.js"),
@@ -73,17 +65,10 @@ function urlMatchesTokens(url, tokens) {
   const lower = String(url).toLowerCase();
   const normalized = lower.replace(/&/g, "?");
   const stripped = lower.replace(/^https?:\/\//, "").replace(/^www\./, "");
-  const strippedNorm = normalized
-    .replace(/^https?:\/\//, "")
-    .replace(/^www\./, "");
+  const strippedNorm = normalized.replace(/^https?:\/\//, "").replace(/^www\./, "");
   return tokens.some((raw) => {
     const p = String(raw).trim().toLowerCase();
     if (!p) return false;
-    return (
-      lower.includes(p) ||
-      normalized.includes(p) ||
-      stripped.includes(p) ||
-      strippedNorm.includes(p)
-    );
+    return lower.includes(p) || normalized.includes(p) || stripped.includes(p) || strippedNorm.includes(p);
   });
 }
