@@ -18,7 +18,7 @@ async function init() {
   document.querySelectorAll(".setting").forEach((el) => {
     el.onchange = async () => {
       await chrome.storage.local.set({ [el.name]: el.checked });
-      await notifyYouTubeTabs();
+      await notifyTabs();
     };
   });
 
@@ -46,7 +46,7 @@ async function init() {
         audio_only_patterns: lines,
         audio_only_tokens: tokens,
       });
-      await notifyYouTubeTabs();
+      await notifyTabs();
     };
 
     patternsEl.onscroll = () => {
@@ -86,7 +86,7 @@ async function init() {
 
 init();
 
-async function notifyYouTubeTabs() {
+async function notifyTabs() {
   const tabs = await chrome.tabs.query({
     url: ["*://*.youtube.com/*", "*://youtube.com/*"],
   });

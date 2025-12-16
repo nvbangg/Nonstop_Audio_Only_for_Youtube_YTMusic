@@ -10,8 +10,9 @@ chrome.tabs.query({ active: true, currentWindow: true }, ([tab]) => {
 async function init() {
   const data = await chrome.storage.local.get(null);
   const sstabs = data.sstabs || {};
-  const isYTMusic = tabUrl.includes("music.youtube.com");
-  const baseDefault = isYTMusic ? data.youtube_music_video : data.youtube_video;
+  const isMusic = tabUrl.includes("music.youtube.com");
+  const baseDefault = isMusic ? data.youtube_music_video : data.youtube_video;
+
   let defaultEnabled = baseDefault;
   if (!baseDefault) {
     const tokens = (data.audio_only_tokens || []).filter(Boolean);

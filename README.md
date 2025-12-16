@@ -3,8 +3,6 @@
 > [!NOTE]
 > Playing Nonstop & Audio Only on YouTube & YouTube Music
 
-[![Available in the Chrome Web Store](https://nvbangg.github.io/assets/images/chrome_webstore.png)](https://chromewebstore.google.com/detail/nonstop-audio-only-for-yo/bobdimbkbnkabpfhdfbddjoppiohcodi)
-
 ## 📌 Introduction
 
 - 🚫 No more “Video Paused. Continue watching?” popups
@@ -15,8 +13,9 @@
 
 ## ⬇️ Installation
 
-- 🌐 Install from **Chrome Web Store**: [Nonstop &amp; Audio Only for Youtube YTMusic](https://chromewebstore.google.com/detail/nonstop-audio-only-for-yo/bobdimbkbnkabpfhdfbddjoppiohcodi)
-  - Or install via user script from [Greasyfork](https://greasyfork.org/vi/scripts/546130-youtube-ytmusic-nonstop) (v1.0 only)
+- 🌐 Install from **Chrome Web Store**: [Nonstop & Audio Only for Youtube YTMusic](https://chromewebstore.google.com/detail/nonstop-audio-only-for-yo/bobdimbkbnkabpfhdfbddjoppiohcodi)
+
+[![Available in the Chrome Web Store](https://nvbangg.github.io/assets/images/chrome_webstore.png)](https://chromewebstore.google.com/detail/nonstop-audio-only-for-yo/bobdimbkbnkabpfhdfbddjoppiohcodi)
 
 > [!IMPORTANT]
 > Recommended to use together with [uBlock Origin Lite](https://chromewebstore.google.com/detail/ublock-origin-lite/ddkjiahejlhfcafbddmgiahcphecmpfh) and [SponsorBlock for YouTube](https://chromewebstore.google.com/detail/sponsorblock-for-youtube/mnjggcdmjocbbbhaepdhchncahnbgone) for the best experience.
@@ -38,3 +37,4 @@
 - We do not collect any data of any kind
 - Copyright (c) 2025 Nguyễn Văn Bằng (nvbangg, [github.com/nvbangg](https://github.com/nvbangg))
 - Licensed under the [GNU General Public License v3.0](./LICENSE)
+- This project is based in part on [Music Mode for YouTube](https://github.com/Thunderarea/music-mode-for-youtube) by Thunderarea.
