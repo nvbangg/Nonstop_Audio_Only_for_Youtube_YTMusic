@@ -13,7 +13,7 @@
 
 ## ⬇️ Installation
 
-- 🌐 Install from **Chrome Web Store**: [Nonstop & Audio Only for Youtube YTMusic](https://chromewebstore.google.com/detail/nonstop-audio-only-for-yo/bobdimbkbnkabpfhdfbddjoppiohcodi)
+- 🌐 Install from **Chrome Web Store**: [Nonstop & Audio Only for Youtube YTMusic](https://chromewebstore.google.com/detail/bobdimbkbnkabpfhdfbddjoppiohcodi)
 
 [![Available in the Chrome Web Store](https://nvbangg.github.io/assets/images/chrome_webstore.png)](https://chromewebstore.google.com/detail/nonstop-audio-only-for-yo/bobdimbkbnkabpfhdfbddjoppiohcodi)
 
