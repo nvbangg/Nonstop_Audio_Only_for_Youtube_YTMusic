@@ -16,9 +16,9 @@
 // ==/UserScript==
 
 //! 📌 Use the Chrome Web Store extension for full features:
-//! https://chromewebstore.google.com/detail/nonstop-audio-only-for-yo/bobdimbkbnkabpfhdfbddjoppiohcodi
+//! https://chromewebstore.google.com/detail/bobdimbkbnkabpfhdfbddjoppiohcodi
 
-(() => {
+(function () {
   "use strict";
   // Force page to always appear visible
   Object.defineProperties(document, {
@@ -27,16 +27,11 @@
   });
 
   // Block visibilitychange events
-  addEventListener(
-    "visibilitychange",
-    (e) => e.stopImmediatePropagation(),
-    true
-  );
+  addEventListener("visibilitychange", (e) => e.stopImmediatePropagation(), true);
 
   // Keep last activity fresh
   const keepAlive = () => {
-    if ("_lact" in window)
-      setInterval(() => (window._lact = Date.now()), 300000);
+    if ("_lact" in window) setInterval(() => (window._lact = Date.now()), 300000);
     else setTimeout(keepAlive, 1000);
   };
   keepAlive();

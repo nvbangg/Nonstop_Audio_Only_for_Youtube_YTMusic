@@ -5,10 +5,9 @@
     visibilityState: { value: "visible" },
   });
   addEventListener("visibilitychange", (e) => e.stopImmediatePropagation(), true);
-  const keepActive = () => {
-    "_lact" in window && setInterval(() => (window._lact = Date.now()), 300000);
+  const keepAlive = () => {
+    if ("_lact" in window) setInterval(() => (window._lact = Date.now()), 300000);
+    else setTimeout(keepAlive, 1000);
   };
-  (function wait() {
-    "_lact" in window ? keepActive() : setTimeout(wait, 1000);
-  })();
+  keepAlive();
 })();
