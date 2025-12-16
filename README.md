@@ -15,7 +15,7 @@
 
 - 🌐 Install from **Chrome Web Store**: [Nonstop & Audio Only for YouTube & YouTube Music](https://chromewebstore.google.com/detail/bobdimbkbnkabpfhdfbddjoppiohcodi)
 
-[![Available in the Chrome Web Store](https://nvbangg.github.io/assets/images/chrome_webstore.png)](https://chromewebstore.google.com/detail/nonstop-audio-only-for-yo/bobdimbkbnkabpfhdfbddjoppiohcodi)
+[![Available in the Chrome Web Store](https://nvbangg.github.io/assets/images/chrome_webstore.png)](https://chromewebstore.google.com/detail/bobdimbkbnkabpfhdfbddjoppiohcodi)
 
 > [!IMPORTANT]
 > Recommended to use together with [uBlock Origin Lite](https://chromewebstore.google.com/detail/ublock-origin-lite/ddkjiahejlhfcafbddmgiahcphecmpfh) and [SponsorBlock for YouTube](https://chromewebstore.google.com/detail/sponsorblock-for-youtube/mnjggcdmjocbbbhaepdhchncahnbgone) for the best experience.
