@@ -77,6 +77,43 @@ function checkAndFixVideoError(video, currentTime, paused) {
   }, 1000);
 }
 
+function getPlayingVideoInfo() {
+  let videoId = null;
+  let playlistId = null;
+
+  let urlParams = new URLSearchParams(location.search);
+  videoId = urlParams.get("v");
+  playlistId = urlParams.get("list");
+
+  if (!videoId) {
+    try {
+      let miniplayerLink = document.querySelector("ytd-miniplayer a[href*='watch']");
+      if (miniplayerLink && miniplayerLink.href) {
+        let watchParams = new URLSearchParams(new URL(miniplayerLink.href).search);
+        videoId = watchParams.get("v");
+        playlistId = watchParams.get("list");
+      }
+    } catch (e) {}
+  }
+
+  if (videoId) {
+    return { videoId, playlistId };
+  }
+  return null;
+}
+
+function getCheckUrl() {
+  let playingInfo = getPlayingVideoInfo();
+  if (playingInfo && playingInfo.videoId) {
+    let url = "v=" + playingInfo.videoId;
+    if (playingInfo.playlistId) {
+      url += "&list=" + playingInfo.playlistId;
+    }
+    return url;
+  }
+  return location.href;
+}
+
 function urlMatchesTokens(url, tokens) {
   if (!tokens.length) return false;
   let lower = String(url).toLowerCase();
@@ -107,7 +144,7 @@ function applyOptions(mustReload) {
       if (!siteEnabled) {
         let tokens = (values.audio_only_tokens || []).filter(Boolean);
         if (tokens.length) {
-          defaultEnabled = urlMatchesTokens(location.href, tokens);
+          defaultEnabled = urlMatchesTokens(getCheckUrl(), tokens);
         }
       }
 
@@ -141,7 +178,11 @@ function applyOptions(mustReload) {
   });
 }
 
-chrome.runtime.onMessage.addListener((request) => {
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.action === "getCheckUrl") {
+    sendResponse({ checkUrl: getCheckUrl() });
+    return true;
+  }
   applyOptions(request.data);
 });
 

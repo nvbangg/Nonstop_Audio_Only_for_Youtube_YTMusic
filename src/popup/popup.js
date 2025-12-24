@@ -13,11 +13,19 @@ async function init() {
   const isMusic = tabUrl.includes("music.youtube.com");
   const baseDefault = isMusic ? data.youtube_music_video : data.youtube_video;
 
+  let checkUrl = tabUrl;
+  try {
+    const response = await chrome.tabs.sendMessage(tabId, { action: "getCheckUrl" });
+    if (response && response.checkUrl) {
+      checkUrl = response.checkUrl;
+    }
+  } catch (e) {}
+
   let defaultEnabled = baseDefault;
   if (!baseDefault) {
     const tokens = (data.audio_only_tokens || []).filter(Boolean);
     if (tokens.length) {
-      defaultEnabled = urlMatchesTokens(tabUrl, tokens);
+      defaultEnabled = urlMatchesTokens(checkUrl, tokens);
     }
   }
 

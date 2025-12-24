@@ -4,10 +4,24 @@ document.addEventListener("injection_script_communication", () => {
   initialization();
 });
 
+let currentVideoId = null;
+
 function initialization() {
   blockVideo = getValue("youtube_nonstop_video_blocked");
-  let videoPlayer = getPlayer();
-  setPlayerBackground(videoPlayer);
+  setPlayerBackground(getPlayer());
+}
+
+function checkVideoChange(url) {
+  try {
+    if (url.includes("api/stats") || url.includes("ptracking")) {
+      let params = new URLSearchParams(url.split("?")[1]);
+      let videoId = params.get("docid") || params.get("video_id");
+      if (videoId && videoId !== currentVideoId) {
+        currentVideoId = videoId;
+        setTimeout(() => setPlayerBackground(getPlayer()), 300);
+      }
+    }
+  } catch (e) {}
 }
 
 initialization();
@@ -40,32 +54,40 @@ async function setPlayerBackground(videoPlayer) {
 }
 
 async function getThumbnailImage(videoPlayer) {
+  let videoId = null;
+
   if (videoPlayer) {
     try {
-      return videoPlayer.getPlayerResponse().videoDetails.thumbnail.thumbnails.slice(-1)[0].url + "?noblocking=true";
-    } catch (error) {}
-  }
-  let url_string = new URL(window.location.href);
-  let videoId = url_string.searchParams.get("v");
-  if (videoId) {
-    let thumbnailUrl;
-    if (getSiteName() === "youtube_music") {
-      thumbnailUrl = `https://i1.ytimg.com/vi/${videoId}/maxresdefault.jpg?noblocking=true`;
-    } else thumbnailUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg?noblocking=true`;
-    return fetch(thumbnailUrl, {
-      method: "HEAD",
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`Response status: ${response.status}`);
+      let response = videoPlayer.getPlayerResponse();
+      if (response && response.videoDetails) {
+        let thumbs = response.videoDetails.thumbnail.thumbnails;
+        if (thumbs && thumbs.length) {
+          return thumbs.slice(-1)[0].url + "?noblocking=true";
         }
-      })
-      .then((data) => {
-        return thumbnailUrl;
-      })
-      .catch((error) => {
-        return thumbnailUrl.replace("maxresdefault", "hqdefault");
-      });
+        videoId = response.videoDetails.videoId;
+      }
+    } catch (e) {}
+
+    if (!videoId) {
+      try {
+        videoId = videoPlayer.getVideoData().video_id;
+      } catch (e) {}
+    }
+  }
+
+  if (!videoId) {
+    videoId = new URLSearchParams(location.search).get("v");
+  }
+
+  if (videoId) {
+    let domain = getSiteName() === "youtube_music" ? "i1.ytimg.com" : "img.youtube.com";
+    let url = `https://${domain}/vi/${videoId}/maxresdefault.jpg?noblocking=true`;
+    try {
+      let res = await fetch(url, { method: "HEAD" });
+      return res.ok ? url : url.replace("maxresdefault", "hqdefault");
+    } catch (e) {
+      return url.replace("maxresdefault", "hqdefault");
+    }
   }
 }
 
@@ -83,8 +105,11 @@ try {
 } catch (e) {}
 
 XMLHttpRequest.prototype.open = function (method, url) {
-  if (blockVideo && url.indexOf("mime=audio") !== -1) {
-    musicModeForYouTube(url, url.indexOf("live=1"), true);
+  if (blockVideo) {
+    checkVideoChange(url);
+    if (url.indexOf("mime=audio") !== -1) {
+      musicModeForYouTube(url, url.indexOf("live=1"), true);
+    }
   }
   return HXRopen.apply(this, arguments);
 };
@@ -93,8 +118,9 @@ try {
   const { fetch: origFetch } = window;
   window.fetch = async (...args) => {
     if (blockVideo) {
-      let url = args[0].url;
+      let url = typeof args[0] === "string" ? args[0] : args[0]?.url;
       if (url) {
+        checkVideoChange(url);
         if (url.indexOf("mime=audio") !== -1) {
           musicModeForYouTube(url, url.indexOf("live=1"), true);
         } else if (url.indexOf("mime=video") !== -1 && url.indexOf("live=1") === -1) {
