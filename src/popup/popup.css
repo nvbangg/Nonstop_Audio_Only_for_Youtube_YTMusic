@@ -135,7 +135,7 @@ input:checked + .toggle-track::before {
   color: royalblue;
 }
 
-#homepage-btn,
-#settings-btn {
+#settings-btn,
+#homepage-btn {
   background: bisque;
 }
