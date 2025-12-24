@@ -11,6 +11,11 @@ ytmusic-player {
   opacity: 0 !important;
 }
 
+#inline-preview-player video,
+#inline-preview-player.html5-video-player video {
+  opacity: 1 !important;
+}
+
 .ytp-tooltip.ytp-preview {
   background-color: transparent !important;
   border: none !important;

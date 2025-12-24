@@ -84,6 +84,34 @@ input:checked + .toggle-track::before {
   transform: translateX(24px);
 }
 
+.toggle-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.reset-btn {
+  display: none;
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 50%;
+  background: #ff6b6b;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s;
+}
+.reset-btn:hover {
+  background: #ee5a5a;
+  transform: scale(1.1);
+}
+.reset-btn.visible {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .footer-buttons {
   display: grid;
   grid-template-columns: 1fr 1fr;

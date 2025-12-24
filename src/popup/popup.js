@@ -20,20 +20,34 @@ async function init() {
       defaultEnabled = urlMatchesTokens(tabUrl, tokens);
     }
   }
-  const enabled = sstabs[tabId]?.enabled ?? defaultEnabled;
+
+  const isOverridden = sstabs[tabId] !== undefined;
+  const enabled = isOverridden ? sstabs[tabId].enabled : defaultEnabled;
 
   const tabToggle = document.getElementById("tab-toggle");
   const tabOption = document.getElementById("tab-option");
+  const resetBtn = document.getElementById("reset-btn");
   const isYT = tabUrl.includes("youtube.com");
   if (!isYT && tabOption) tabOption.style.display = "none";
   const settingsBtn = document.getElementById("settings-btn");
 
   tabToggle.checked = enabled;
+  if (isOverridden) resetBtn.classList.add("visible");
 
   tabToggle.onchange = async () => {
     const { sstabs = {} } = await chrome.storage.local.get("sstabs");
     sstabs[tabId] = { enabled: tabToggle.checked };
     await chrome.storage.local.set({ sstabs });
+    resetBtn.classList.add("visible");
+    chrome.tabs.sendMessage(tabId, { data: 1 }, () => chrome.runtime.lastError);
+  };
+
+  resetBtn.onclick = async () => {
+    const { sstabs = {} } = await chrome.storage.local.get("sstabs");
+    delete sstabs[tabId];
+    await chrome.storage.local.set({ sstabs });
+    tabToggle.checked = defaultEnabled;
+    resetBtn.classList.remove("visible");
     chrome.tabs.sendMessage(tabId, { data: 1 }, () => chrome.runtime.lastError);
   };
 
