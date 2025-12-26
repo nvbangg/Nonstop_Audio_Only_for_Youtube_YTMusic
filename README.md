@@ -20,11 +20,7 @@
 > [!IMPORTANT]
 > Recommended to use together with [uBlock Origin Lite](https://chromewebstore.google.com/detail/ublock-origin-lite/ddkjiahejlhfcafbddmgiahcphecmpfh) and [SponsorBlock for YouTube](https://chromewebstore.google.com/detail/sponsorblock-for-youtube/mnjggcdmjocbbbhaepdhchncahnbgone) for the best experience.
 
-<div align="center">
-
-[![Followers](https://img.shields.io/github/followers/nvbangg?label=Follow%20my%20GitHub&logo=github)](https://github.com/nvbangg) &nbsp; [![Stars](https://img.shields.io/github/stars/nvbangg/Nonstop_Audio_Only_for_Youtube_YTMusic?label=Star%20this%20repo&logo=github)](https://github.com/nvbangg/Nonstop_Audio_Only_for_Youtube_YTMusic) &nbsp; ![Visitors](https://api.visitorbadge.io/api/visitors?path=Nonstop_Audio_Only_for_Youtube_YTMusic&countColor=blue&style=flat&labelStyle=none)<br><img src="https://nvbangg.github.io/assets/gifs/follow_star_github.gif" height="100">
-
-</div>
+[![Followers](https://img.shields.io/github/followers/nvbangg?label=Follow%20my%20GitHub&logo=github)](https://github.com/nvbangg) &nbsp; [![Stars](https://img.shields.io/github/stars/nvbangg/Nonstop_Audio_Only_for_Youtube_YTMusic?label=Star%20this%20repo&logo=github)](https://github.com/nvbangg/Nonstop_Audio_Only_for_Youtube_YTMusic) &nbsp; ![Visitors](https://api.visitorbadge.io/api/visitors?path=Nonstop_Audio_Only_for_Youtube_YTMusic&countColor=blue&style=flat&labelStyle=none)
 
 <br>
 
