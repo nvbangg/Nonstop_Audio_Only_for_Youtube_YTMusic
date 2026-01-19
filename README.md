@@ -3,6 +3,8 @@
 > [!NOTE]
 > Playing Nonstop & Audio Only on YouTube & YouTube Music
 
+[![Stars](https://img.shields.io/github/stars/nvbangg/Nonstop_Audio_Only_for_Youtube_YTMusic?label=Like%20this%20project%3F%20Star%20it%20⭐&logo=github)](https://github.com/nvbangg/Nonstop_Audio_Only_for_Youtube_YTMusic) &nbsp; [![Followers](https://img.shields.io/github/followers/nvbangg?label=Follow%20me&logo=github)](https://github.com/nvbangg) &nbsp; [![Sponsor](https://img.shields.io/badge/Sponsor%20this%20project-pink?style=social&logo=github-sponsors)](https://nvbangg.github.io/#donate)
+
 ## 📌 Introduction
 
 - 🚫 No more “Video Paused. Continue watching?” popups
@@ -20,21 +22,17 @@
 > [!IMPORTANT]
 > Recommended to use together with [uBlock Origin Lite](https://chromewebstore.google.com/detail/ublock-origin-lite/ddkjiahejlhfcafbddmgiahcphecmpfh) and [SponsorBlock for YouTube](https://chromewebstore.google.com/detail/sponsorblock-for-youtube/mnjggcdmjocbbbhaepdhchncahnbgone) for the best experience.
 
-<div align="center">
-
-[![Followers](https://img.shields.io/github/followers/nvbangg?label=Follow%20my%20GitHub&logo=github)](https://github.com/nvbangg) &nbsp; [![Stars](https://img.shields.io/github/stars/nvbangg/Nonstop_Audio_Only_for_Youtube_YTMusic?label=Star%20this%20repo&logo=github)](https://github.com/nvbangg/Nonstop_Audio_Only_for_Youtube_YTMusic) &nbsp; ![Visitors](https://api.visitorbadge.io/api/visitors?path=Nonstop_Audio_Only_for_Youtube_YTMusic&countColor=blue&style=flat&labelStyle=none)<br><img src="https://nvbangg.github.io/assets/gifs/follow_star_github.gif" height="100">
-
-</div>
-
 <br>
 
 ![Demo](https://raw.githubusercontent.com/nvbangg/Nonstop_Audio_Only_for_Youtube_YTMusic/main/demo/demo.png)
 
 ---
 
-## ⚖️ Privacy Policy & License
+## ⚖️ Privacy Policy & Legal
 
-- We do not collect any data of any kind
+- This project does not collect any data of any kind
 - Copyright (c) 2025 Nguyễn Văn Bằng (nvbangg, [github.com/nvbangg](https://github.com/nvbangg))
-- Licensed under the [GNU General Public License v3.0](./LICENSE)
-- This project is based in part on [Music Mode for YouTube](https://github.com/Thunderarea/music-mode-for-youtube) by Thunderarea.
+
+## 🙏 Credits
+
+- [Music Mode for YouTube](https://github.com/Thunderarea/music-mode-for-youtube) by Thunderarea
