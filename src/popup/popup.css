@@ -6,7 +6,7 @@ body {
 }
 
 .popup {
-  width: 320px;
+  width: 350px;
   padding: 15px;
   text-align: center;
 }
@@ -18,6 +18,7 @@ body {
   padding-bottom: 10px;
   text-align: center;
   gap: 15px;
+  background: mintcream;
 }
 .header img {
   width: 48px;
@@ -34,7 +35,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
   padding: 10px 15px;
   border-radius: 20px;
   margin: 5px 0;
@@ -100,7 +100,9 @@ input:checked + .toggle-track::before {
   color: white;
   font-size: 14px;
   cursor: pointer;
-  transition: transform 0.2s, background 0.2s;
+  transition:
+    transform 0.2s,
+    background 0.2s;
 }
 .reset-btn:hover {
   background: #ee5a5a;
@@ -113,21 +115,24 @@ input:checked + .toggle-track::before {
 }
 
 .footer-buttons {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  justify-content: center;
   gap: 10px;
   margin-top: 15px;
 }
 
 .footer-button {
-  padding: 10px 15px;
+  padding: 8px 12px;
   background: mistyrose;
   border-radius: 20px;
+  font-size: 14px;
   color: dodgerblue;
   text-decoration: none;
   border: none;
   cursor: pointer;
-  transition: transform 0.2s, color 0.2s;
+  transition:
+    transform 0.2s,
+    color 0.2s;
   text-align: center;
 }
 .footer-button:hover {
@@ -135,7 +140,6 @@ input:checked + .toggle-track::before {
   color: royalblue;
 }
 
-#settings-btn,
-#homepage-btn {
+#settings-btn {
   background: bisque;
 }

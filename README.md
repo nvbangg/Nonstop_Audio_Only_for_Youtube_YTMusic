@@ -1,9 +1,12 @@
 # Nonstop & Audio Only for YouTube & YouTube Music
-
 > [!NOTE]
 > Playing Nonstop & Audio Only on YouTube & YouTube Music
 
-[![Stars](https://img.shields.io/github/stars/nvbangg/Nonstop_Audio_Only_for_Youtube_YTMusic?label=Like%20this%20project%3F%20Star%20it%20⭐&logo=github)](https://github.com/nvbangg/Nonstop_Audio_Only_for_Youtube_YTMusic) &nbsp; [![Followers](https://img.shields.io/github/followers/nvbangg?label=Follow%20me&logo=github)](https://github.com/nvbangg) &nbsp; [![Sponsor](https://img.shields.io/badge/Sponsor%20this%20project-pink?style=social&logo=github-sponsors)](https://nvbangg.github.io/#donate)
+<div align="center">
+
+[![Stars](https://img.shields.io/github/stars/nvbangg/Nonstop_Audio_Only_for_Youtube_YTMusic?label=Star%20this%20repo%20if%20useful%20⭐&logo=github)](https://github.com/nvbangg/Nonstop_Audio_Only_for_Youtube_YTMusic) &ensp; [![Donate](https://img.shields.io/badge/Support%20this%20project-pink?style=social&logo=github-sponsors)](https://nvbangg.github.io/#donate)
+<br>👉 Other Tools: [nvbangg-tools](https://github.com/nvbangg/nvbangg-tools)
+</div> 
 
 ## 📌 Introduction
 
@@ -27,12 +30,8 @@
 ![Demo](https://raw.githubusercontent.com/nvbangg/Nonstop_Audio_Only_for_Youtube_YTMusic/main/demo/demo.png)
 
 ---
-
-## ⚖️ Privacy Policy & Legal
-
+## ⚖️ Privacy Policy
 - This project does not collect any data of any kind
-- Copyright (c) 2025 Nguyễn Văn Bằng (nvbangg, [github.com/nvbangg](https://github.com/nvbangg))
 
 ## 🙏 Credits
-
 - [Music Mode for YouTube](https://github.com/Thunderarea/music-mode-for-youtube) by Thunderarea
