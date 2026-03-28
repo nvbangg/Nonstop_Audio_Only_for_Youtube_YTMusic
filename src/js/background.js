@@ -1,55 +1,52 @@
-let options = {
-  youtube_video: false,
-  youtube_music_video: true,
+const options = {
+  youtube_audio_only: false,
+  youtube_music_audio_only: true,
   youtube_nonstop: true,
   youtube_music_nonstop: true,
 };
 
-chrome.runtime.onInstalled.addListener((details) => {
-  if (details.reason !== "browser_update" && details.reason !== "chrome_update") {
-    initOptions();
-  }
+function clearTabState() {
   chrome.storage.local.set({ sstabs: {} });
-});
-
-chrome.runtime.onStartup.addListener(() => {
-  chrome.storage.local.set({ sstabs: {} });
-});
-
-async function initOptions() {
-  const stored = await chrome.storage.local.get(null);
-  for (let key in options) {
-    if (stored[key] === undefined) {
-      stored[key] = options[key];
-    }
-  }
-  await chrome.storage.local.set(stored);
-  chrome.management.getSelf((info) => {
-    chrome.storage.local.set({ version: info.version });
-  });
 }
 
+async function initializeStorage() {
+  const stored = await chrome.storage.local.get(null);
+  const next = { version: chrome.runtime.getManifest().version };
+
+  for (const [key, fallback] of Object.entries(options)) {
+    const value = stored[key];
+    next[key] = typeof value === typeof fallback ? value : fallback;
+  }
+
+  await chrome.storage.local.set(next);
+  await chrome.storage.local.remove(["audio_only_patterns", "audio_only_tokens"]);
+}
+
+chrome.runtime.onInstalled.addListener(async ({ reason }) => {
+  if (reason !== "browser_update" && reason !== "chrome_update") {
+    await initializeStorage();
+  }
+  clearTabState();
+});
+
+chrome.runtime.onStartup.addListener(clearTabState);
+
 chrome.tabs.onRemoved.addListener((tabId) => {
-  chrome.storage.local.get("sstabs", (data) => {
-    let sstabs = data.sstabs || {};
-    if (tabId in sstabs) {
-      delete sstabs[tabId];
-      chrome.storage.local.set({ sstabs });
-    }
+  chrome.storage.local.get("sstabs", ({ sstabs = {} }) => {
+    if (!(tabId in sstabs)) return;
+    delete sstabs[tabId];
+    chrome.storage.local.set({ sstabs });
   });
 });
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-  if (changeInfo.status === "loading" || (changeInfo.status && changeInfo.url)) {
-    if (tab.url && tab.url.includes("youtube.com")) {
-      chrome.tabs.sendMessage(tabId, { data: 2 }, () => chrome.runtime.lastError);
-    }
-  }
+  if (!(changeInfo.status === "loading" || changeInfo.url)) return;
+  const url = changeInfo.url || tab?.url || "";
+  if (!url.includes("youtube.com")) return;
+  chrome.tabs.sendMessage(tabId, { data: 2 }, () => chrome.runtime.lastError);
 });
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.funct === 0) {
-    sendResponse({ id: sender.tab.id, url: sender.url });
-    return true;
-  }
+  if (request?.funct !== 0 || !sender?.tab) return;
+  sendResponse({ id: sender.tab.id, url: sender.url || sender.tab.url || "" });
 });

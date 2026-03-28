@@ -1,43 +1,76 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Nonstop Audio Only</title>
-    <link rel="stylesheet" href="popup.css" />
-  </head>
 
-  <body>
-    <div class="popup">
-      <div class="header">
-        <img src="../icon.png" alt="Icon" />
-        <h1>Nonstop & Audio Only for YouTube & YouTube Music</h1>
-      </div>
-      <div class="option" id="tab-option">
-        <span>Audio only for this Tab</span>
-        <div class="toggle-wrapper">
-          <button class="reset-btn" id="reset-btn" title="Reset to default">↩</button>
+<head>
+  <meta charset="UTF-8" />
+  <title>Nonstop Audio Only</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+
+<body>
+  <div class="popup">
+    <div class="header">
+      <img src="../icon.png" alt="Icon" />
+      <h1>Nonstop & Audio Only for YouTube & YouTube Music</h1>
+    </div>
+
+    <div class="option" id="tab-option">
+      <span>Audio only for this tab</span>
+      <label class="toggle-btn">
+        <input type="checkbox" id="tab-toggle" />
+        <span class="toggle-track"></span>
+      </label>
+    </div>
+
+    <div class="settings" id="settings-box">
+      <button class="settings-head" id="settings-head" type="button">
+        <span>Default settings</span>
+        <span class="caret" id="settings-caret">▾</span>
+      </button>
+      <div class="settings-body" id="settings-body">
+        <div class="option">
+          <span>Audio only on YouTube</span>
           <label class="toggle-btn">
-            <input type="checkbox" id="tab-toggle" />
+            <input type="checkbox" data-key="youtube_audio_only" class="setting-toggle" />
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+        <div class="option">
+          <span>Audio only on YouTube Music</span>
+          <label class="toggle-btn">
+            <input type="checkbox" data-key="youtube_music_audio_only" class="setting-toggle" />
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+        <div class="option">
+          <span>Nonstop on YouTube</span>
+          <label class="toggle-btn">
+            <input type="checkbox" data-key="youtube_nonstop" class="setting-toggle" />
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+        <div class="option">
+          <span>Nonstop on YouTube Music</span>
+          <label class="toggle-btn">
+            <input type="checkbox" data-key="youtube_music_nonstop" class="setting-toggle" />
             <span class="toggle-track"></span>
           </label>
         </div>
       </div>
-      <div class="footer-buttons">
-        <a class="footer-button" id="settings-btn">⚙️ Settings</a>
-        <a
-          class="footer-button"
-          href="https://chromewebstore.google.com/detail/bobdimbkbnkabpfhdfbddjoppiohcodi"
-          target="_blank"
-          >🏠 Homepage</a
-        >
-        <a
-          class="footer-button"
-          href="https://github.com/nvbangg/Nonstop_Audio_Only_for_Youtube_YTMusic"
-          target="_blank"
-          ><svg viewBox="0 0 16 16" width="14" height="14" fill="black" style="vertical-align:-2px"><path d="M8 0a8 8 0 0 0-2.53 15.6c.4.07.55-.17.55-.38v-1.33c-2.22.48-2.69-1.07-2.69-1.07-.36-.92-.88-1.16-.88-1.16-.72-.5.06-.49.06-.49.8.06 1.22.82 1.22.82.7 1.2 1.83.85 2.28.65.07-.5.27-.85.5-1.05-1.77-.2-3.64-.89-3.64-3.96 0-.87.31-1.58.82-2.14-.08-.2-.36-1.02.08-2.13 0 0 .67-.21 2.2.82a7.7 7.7 0 0 1 4 0c1.53-1.03 2.2-.82 2.2-.82.44 1.1.16 1.93.08 2.13.51.56.82 1.27.82 2.14 0 3.08-1.87 3.76-3.65 3.96.28.25.53.72.53 1.46v2.16c0 .21.15.46.55.38A8 8 0 0 0 8 0Z"/></svg> GitHub</a
-        >
-      </div>
     </div>
-    <script src="popup.js"></script>
-  </body>
+
+    <div class="footer-buttons">
+      <a class="footer-button" href="https://chromewebstore.google.com/detail/bobdimbkbnkabpfhdfbddjoppiohcodi"
+        target="_blank">🏠 Homepage</a>
+      <a class="footer-button" href="https://github.com/nvbangg/Nonstop_Audio_Only_for_Youtube_YTMusic"
+        target="_blank"><svg viewBox="0 0 16 16" width="14" height="14" fill="black" style="vertical-align: -2px">
+          <path
+            d="M8 0a8 8 0 0 0-2.53 15.6c.4.07.55-.17.55-.38v-1.33c-2.22.48-2.69-1.07-2.69-1.07-.36-.92-.88-1.16-.88-1.16-.72-.5.06-.49.06-.49.8.06 1.22.82 1.22.82.7 1.2 1.83.85 2.28.65.07-.5.27-.85.5-1.05-1.77-.2-3.64-.89-3.64-3.96 0-.87.31-1.58.82-2.14-.08-.2-.36-1.02.08-2.13 0 0 .67-.21 2.2.82a7.7 7.7 0 0 1 4 0c1.53-1.03 2.2-.82 2.2-.82.44 1.1.16 1.93.08 2.13.51.56.82 1.27.82 2.14 0 3.08-1.87 3.76-3.65 3.96.28.25.53.72.53 1.46v2.16c0 .21.15.46.55.38A8 8 0 0 0 8 0Z" />
+        </svg>
+        GitHub</a>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+
 </html>

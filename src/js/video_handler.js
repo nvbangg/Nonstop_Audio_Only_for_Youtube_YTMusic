@@ -1,287 +1,82 @@
-let blockVideo = getValue("youtube_nonstop_video_blocked");
+let audioOnly = sessionStorage.getItem("youtube_nonstop_video_blocked") === "true";
 
-document.addEventListener("injection_script_communication", () => {
-  initialization();
-});
-
-let currentVideoId = null;
-
-function initialization() {
-  blockVideo = getValue("youtube_nonstop_video_blocked");
-  setPlayerBackground(getPlayer());
+function isMusicSite() {
+  return location.hostname.includes("music.youtube.com");
 }
 
-function checkVideoChange(url) {
+function getActiveVideo() {
+  const list = document.querySelectorAll("video");
+  for (const video of list) {
+    const rect = video.getBoundingClientRect();
+    if (isMusicSite() || (rect.width > 0 && rect.height > 0)) return video;
+  }
+  return null;
+}
+
+async function thumbnailUrl() {
+  const player = getActiveVideo()?.parentNode?.parentNode || null;
+  const thumbs = player?.getPlayerResponse?.()?.videoDetails?.thumbnail?.thumbnails;
+  if (thumbs?.length) return `${thumbs[thumbs.length - 1].url}?noblocking=true`;
+
+  const id = new URLSearchParams(location.search).get("v");
+  if (!id) return "";
+
+  const host = isMusicSite() ? "i1.ytimg.com" : "img.youtube.com";
+  const hi = `https://${host}/vi/${id}/maxresdefault.jpg?noblocking=true`;
   try {
-    if (url.includes("api/stats") || url.includes("ptracking")) {
-      let params = new URLSearchParams(url.split("?")[1]);
-      let videoId = params.get("docid") || params.get("video_id");
-      if (videoId && videoId !== currentVideoId) {
-        currentVideoId = videoId;
-        setTimeout(() => setPlayerBackground(getPlayer()), 300);
-      }
-    }
-  } catch (e) {}
-}
-
-initialization();
-
-async function setPlayerBackground(videoPlayer) {
-  let stylesheet = document.getElementById("youtube_nonstop_player_background");
-  let stylesheetContent = ``;
-
-  if (blockVideo) {
-    let imgurl = await getThumbnailImage(videoPlayer);
-    if (imgurl) {
-      stylesheetContent += `
-      .html5-video-player,
-      ytmusic-player {
-        background-image: url('${imgurl}') !important;
-        background-repeat: no-repeat !important;
-        background-position: center !important;
-        background-size: contain !important;
-      }
-    `;
-    }
-  }
-
-  if (stylesheet == undefined) {
-    stylesheet = document.createElement("style");
-    stylesheet.id = "youtube_nonstop_player_background";
-    document.documentElement.appendChild(stylesheet);
-  }
-  stylesheet.textContent = stylesheetContent;
-}
-
-async function getThumbnailImage(videoPlayer) {
-  let videoId = null;
-
-  if (videoPlayer) {
-    try {
-      let response = videoPlayer.getPlayerResponse();
-      if (response && response.videoDetails) {
-        let thumbs = response.videoDetails.thumbnail.thumbnails;
-        if (thumbs && thumbs.length) {
-          return thumbs.slice(-1)[0].url + "?noblocking=true";
-        }
-        videoId = response.videoDetails.videoId;
-      }
-    } catch (e) {}
-
-    if (!videoId) {
-      try {
-        videoId = videoPlayer.getVideoData().video_id;
-      } catch (e) {}
-    }
-  }
-
-  if (!videoId) {
-    videoId = new URLSearchParams(location.search).get("v");
-  }
-
-  if (videoId) {
-    let domain = getSiteName() === "youtube_music" ? "i1.ytimg.com" : "img.youtube.com";
-    let url = `https://${domain}/vi/${videoId}/maxresdefault.jpg?noblocking=true`;
-    try {
-      let res = await fetch(url, { method: "HEAD" });
-      return res.ok ? url : url.replace("maxresdefault", "hqdefault");
-    } catch (e) {
-      return url.replace("maxresdefault", "hqdefault");
-    }
-  }
-}
-
-function getPlayer() {
-  let player;
-  let video = findVideoEl();
-  if (video && video.parentNode && video.parentNode.parentNode) player = video.parentNode.parentNode;
-  return player;
-}
-
-try {
-  if (typeof HXRopen === "undefined") {
-    var HXRopen = XMLHttpRequest.prototype.open;
-  }
-} catch (e) {}
-
-XMLHttpRequest.prototype.open = function (method, url) {
-  if (blockVideo) {
-    checkVideoChange(url);
-    if (url.indexOf("mime=audio") !== -1) {
-      musicModeForYouTube(url, url.indexOf("live=1"), true);
-    }
-  }
-  return HXRopen.apply(this, arguments);
-};
-
-try {
-  const { fetch: origFetch } = window;
-  window.fetch = async (...args) => {
-    if (blockVideo) {
-      let url = typeof args[0] === "string" ? args[0] : args[0]?.url;
-      if (url) {
-        checkVideoChange(url);
-        if (url.indexOf("mime=audio") !== -1) {
-          musicModeForYouTube(url, url.indexOf("live=1"), true);
-        } else if (url.indexOf("mime=video") !== -1 && url.indexOf("live=1") === -1) {
-          return new Response("", { status: 204 });
-        }
-      }
-    }
-    return await origFetch(...args);
-  };
-} catch (error) {}
-
-function musicModeForYouTube(url, isLive, firstCall) {
-  let video = findVideoEl();
-  if (video) {
-    setPlaybackRateAgain(video);
-    if (isLive != -1) {
-      if (isNotMusicUrl(video.src)) {
-        video.dataset.originalurl = video.src;
-        video.dataset.musicurl = 1;
-      }
-    } else {
-      if (isNotMusicUrl(video.src)) {
-        if (!firstCall) {
-          try {
-            const params = new URLSearchParams(url);
-            if (video.parentNode.parentNode.getVideoData().cpn == params.get("cpn")) {
-              setNewURL(video, url);
-            }
-          } catch (error) {}
-        } else setNewURL(video, url);
-      } else {
-        if (firstCall) {
-          setTimeout(() => {
-            musicModeForYouTube(url, isLive, false);
-          }, 5000);
-        }
-      }
-    }
-  }
-}
-
-function setNewURL(video, url) {
-  let urlParts = url.split("?");
-  if (urlParts.length >= 2) {
-    let parametersToBeRemoved = ["rn", "rbuf", "range", "ump"];
-    let parameters = urlParts[1].split(/[&;]/g);
-    parametersToBeRemoved.forEach((k) => {
-      parameters = parameters.filter((p) => !p.startsWith(encodeURIComponent(k) + "="));
-    });
-    url = urlParts[0] + "?" + parameters.join("&");
-    if (video.src !== url && blockVideo) {
-      if (video.parentNode && video.parentNode.parentNode) {
-        let videoPlayer = video.parentNode.parentNode;
-        setPlayerBackground(videoPlayer);
-      }
-      video.dataset.musicurl = url;
-      video.dataset.originalurl = video.src;
-      let paused = video.paused;
-      if (!paused) video.pause();
-      let curTime = video.currentTime;
-      video.src = url;
-
-      let observerOptions = {
-        attributes: true,
-        attributeFilter: ["src"],
-        attributeOldValue: true,
-      };
-      let videoSrcObserver = new MutationObserver(findChangesInSource);
-      videoSrcObserver.observe(video, observerOptions);
-      video.addEventListener("stalled", listenerReceiver);
-      video.load();
-      video.currentTime = curTime;
-      video.parentNode.parentNode.playVideo();
-    }
-  }
-}
-
-function listenerReceiver(e) {
-  reloadVideo(e.target.currentTime, true);
-}
-
-function findChangesInSource(mutations) {
-  for (let mutation of mutations) {
-    if (mutation.target.nodeName === "VIDEO") {
-      if (!mutation.target.hasAttribute("src") || mutation.target.src === "") {
-        reloadVideo(mutation.target.currentTime, true);
-      }
-    }
-  }
-}
-
-function reloadVideo(currentTime, reSearchVideo) {
-  let newVideoEl = findVideoEl();
-  if (!newVideoEl) {
-    if (reSearchVideo) {
-      setTimeout(() => {
-        reloadVideo(currentTime, false);
-      }, 5000);
-    }
-  } else {
-    if (newVideoEl.offsetTop < 0 && !isVideoPreview(newVideoEl)) {
-      setTimeout(() => {
-        let newVideoEl = findVideoEl();
-        if (newVideoEl && (!newVideoEl.hasAttribute("src") || newVideoEl.src === "")) {
-          newVideoEl.parentNode.parentNode.playVideo();
-        }
-      }, 1000);
-    }
-  }
-}
-
-function isVideoPreview(video) {
-  try {
-    return video.parentNode.parentNode.id == "inline-preview-player";
-  } catch (error) {
-    return false;
-  }
-}
-
-function setPlaybackRateAgain(video) {
-  try {
-    let player = video.parentNode.parentNode;
-    let rate = player.getPlaybackRate();
-    player.setPlaybackRate(1);
-    player.setPlaybackRate(rate);
+    const head = await fetch(hi, { method: "HEAD" });
+    if (head.ok) return hi;
   } catch (err) {}
+  return hi.replace("maxresdefault", "hqdefault");
 }
 
-function findVideoEl() {
-  let video;
-  let videoElements = document.querySelectorAll("video");
-  if (videoElements && videoElements.length) {
-    let videoRect;
-    for (var i = 0; i < videoElements.length; i++) {
-      if (videoElements[i] !== undefined) {
-        videoRect = videoElements[i].getBoundingClientRect();
-        if (getSiteName() !== "youtube_music") {
-          if (videoRect.width > 0 && videoRect.height > 0) {
-            video = videoElements[i];
-            break;
-          }
-        } else {
-          video = videoElements[i];
-          break;
-        }
-      }
-    }
+async function renderBackground() {
+  let style = document.getElementById("youtube_nonstop_player_background");
+  if (!style) {
+    style = document.createElement("style");
+    style.id = "youtube_nonstop_player_background";
+    document.documentElement.appendChild(style);
   }
-  return video;
+
+  if (!audioOnly) {
+    style.textContent = "";
+    return;
+  }
+
+  const url = await thumbnailUrl();
+  if (!url) {
+    style.textContent = "";
+    return;
+  }
+
+  style.textContent = `
+    .nao-audio-player {
+      background-image: url('${url}') !important;
+      background-repeat: no-repeat !important;
+      background-position: center !important;
+      background-size: contain !important;
+    }
+  `;
 }
 
-function getSiteName() {
-  if (window.location.hostname.indexOf("music.youtube.com") !== -1) return "youtube_music";
-  else if (window.location.href.indexOf("www.youtube.com") !== -1) return "youtube";
-  else return "false";
+function refresh() {
+  audioOnly = sessionStorage.getItem("youtube_nonstop_video_blocked") === "true";
+  updateAudioOnlyClasses(audioOnly);
+  renderBackground();
 }
 
-function getValue(key) {
-  return sessionStorage.getItem(key) === "true";
+function updateAudioOnlyClasses(enabled) {
+  document.querySelectorAll(".nao-audio-player").forEach((el) => el.classList.remove("nao-audio-player"));
+  document.querySelectorAll(".nao-audio-video").forEach((el) => el.classList.remove("nao-audio-video"));
+
+  if (!enabled) return;
+
+  const video = getActiveVideo();
+  const player = video?.parentNode?.parentNode || null;
+  if (video) video.classList.add("nao-audio-video");
+  if (player) player.classList.add("nao-audio-player");
 }
 
-function isNotMusicUrl(url) {
-  return url.indexOf("www.youtube.com") !== -1 || url.indexOf("music.youtube.com") !== -1;
-}
+document.addEventListener("nao_runtime_sync", refresh);
+document.addEventListener("yt-navigate-finish", refresh);
+refresh();

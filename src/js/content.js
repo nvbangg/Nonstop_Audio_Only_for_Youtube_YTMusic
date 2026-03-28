@@ -1,189 +1,58 @@
-const event = new Event("injection_script_communication");
+const SYNC_EVENT_NAME = "nao_runtime_sync";
+const syncEvent = new Event(SYNC_EVENT_NAME);
+const IS_MUSIC_SITE = location.hostname.includes("music.youtube.com");
+const SITE_KEYS = IS_MUSIC_SITE
+  ? { audio: "youtube_music_audio_only", nonstop: "youtube_music_nonstop" }
+  : { audio: "youtube_audio_only", nonstop: "youtube_nonstop" };
 
-function isYoutubeMusic() {
-  return window.location.hostname.indexOf("music.youtube.com") !== -1;
-}
-
-function insertVideoHandler() {
-  if (!document.getElementById("youtube_nonstop_video_handler")) {
-    let script = document.createElement("script");
-    script.src = chrome.runtime.getURL("js/video_handler.js");
-    script.id = "youtube_nonstop_video_handler";
-    document.documentElement.appendChild(script);
+function ensureAsset(id, kind, file) {
+  if (document.getElementById(id)) return;
+  const node = document.createElement(kind === "style" ? "link" : "script");
+  node.id = id;
+  if (kind === "style") {
+    node.href = chrome.runtime.getURL(file);
+    node.type = "text/css";
+    node.rel = "stylesheet";
+  } else {
+    node.src = chrome.runtime.getURL(file);
   }
+  document.documentElement.appendChild(node);
 }
 
-function insertStylesheet() {
-  if (!document.getElementById("youtube_nonstop_video_styles")) {
-    let link = document.createElement("link");
-    link.href = chrome.runtime.getURL("style.css");
-    link.id = "youtube_nonstop_video_styles";
-    link.type = "text/css";
-    link.rel = "stylesheet";
-    document.documentElement.appendChild(link);
-  }
-}
-
-function removeStylesheet() {
-  let elem = document.getElementById("youtube_nonstop_video_styles");
-  if (elem) elem.remove();
-  elem = document.getElementById("youtube_nonstop_player_background");
-  if (elem) elem.remove();
-}
-
-function saveState(enabled) {
-  sessionStorage.setItem("youtube_nonstop_video_blocked", enabled ? "true" : "false");
-}
-
-function restoreVideo() {
-  let youtubeURLpattern = /(www\.youtube\.com|music\.youtube\.com)/;
-  let video = document.querySelector("video");
-
-  if (video && video.src !== "" && !youtubeURLpattern.test(video.src)) {
-    if (video.dataset.musicurl && video.dataset.musicurl === video.src && video.dataset.originalurl) {
-      let paused = video.paused;
-      video.pause();
-      let currentTime = video.currentTime;
-
-      video.src = video.dataset.originalurl;
-      video.load();
-      checkAndFixVideoError(video, currentTime, paused);
-      video.currentTime = currentTime;
-
-      if (!paused) {
-        try {
-          video.parentNode.parentNode.playVideo();
-        } catch (error) {}
-      }
-
-      delete video.dataset.originalurl;
-      delete video.dataset.musicurl;
-    }
-  }
-}
-
-function checkAndFixVideoError(video, currentTime, paused) {
-  setTimeout(() => {
-    if (document.querySelector(".ytp-error")) {
-      let errorRect = document.querySelector(".ytp-error").getBoundingClientRect();
-      if (errorRect.width > 0 && errorRect.height > 0) {
-        try {
-          video.parentNode.parentNode.loadVideoById(video.parentNode.parentNode.getVideoData().video_id);
-          video.currentTime = currentTime;
-          if (paused) video.pause();
-        } catch (error) {}
-      }
-    }
-  }, 1000);
-}
-
-function getPlayingVideoInfo() {
-  let videoId = null;
-  let playlistId = null;
-
-  let urlParams = new URLSearchParams(location.search);
-  videoId = urlParams.get("v");
-  playlistId = urlParams.get("list");
-
-  if (!videoId) {
-    try {
-      let miniplayerLink = document.querySelector("ytd-miniplayer a[href*='watch']");
-      if (miniplayerLink && miniplayerLink.href) {
-        let watchParams = new URLSearchParams(new URL(miniplayerLink.href).search);
-        videoId = watchParams.get("v");
-        playlistId = watchParams.get("list");
-      }
-    } catch (e) {}
-  }
-
-  if (videoId) {
-    return { videoId, playlistId };
-  }
-  return null;
-}
-
-function getCheckUrl() {
-  let playingInfo = getPlayingVideoInfo();
-  if (playingInfo && playingInfo.videoId) {
-    let url = "v=" + playingInfo.videoId;
-    if (playingInfo.playlistId) {
-      url += "&list=" + playingInfo.playlistId;
-    }
-    return url;
-  }
-  return location.href;
-}
-
-function urlMatchesTokens(url, tokens) {
-  if (!tokens.length) return false;
-  let lower = String(url).toLowerCase();
-  let normalized = lower.replace(/&/g, "?");
-  let stripped = lower.replace(/^https?:\/\//, "").replace(/^www\./, "");
-  let strippedNorm = normalized.replace(/^https?:\/\//, "").replace(/^www\./, "");
-  return tokens.some((raw) => {
-    let p = String(raw).trim().toLowerCase();
-    if (!p) return false;
-    return lower.includes(p) || normalized.includes(p) || stripped.includes(p) || strippedNorm.includes(p);
-  });
-}
-
-function applyOptions(mustReload) {
-  chrome.runtime.sendMessage({ funct: 0 }, (response) => {
+function applyRuntime() {
+  chrome.runtime.sendMessage({ funct: 0 }, (meta) => {
     chrome.runtime.lastError;
-    if (!response) return;
-    let tabId = response.id;
-    let isMusic = isYoutubeMusic();
+    if (!meta) return;
 
-    chrome.storage.local.get(null, (values) => {
-      let sstabs = values.sstabs || {};
+    chrome.storage.local.get(null, (state) => {
+      const overrides = state.sstabs || {};
+      const defaultEnabled = state[SITE_KEYS.audio] === true;
+      const audioOnly = overrides[meta.id] !== undefined ? !!overrides[meta.id].enabled : defaultEnabled;
+      sessionStorage.setItem("youtube_nonstop_video_blocked", audioOnly ? "true" : "false");
 
-      let siteKey = isMusic ? "youtube_music_video" : "youtube_video";
-      let siteEnabled = values[siteKey] !== false;
-
-      let defaultEnabled = siteEnabled;
-      if (!siteEnabled) {
-        let tokens = (values.audio_only_tokens || []).filter(Boolean);
-        if (tokens.length) {
-          defaultEnabled = urlMatchesTokens(getCheckUrl(), tokens);
-        }
-      }
-
-      let enabled = sstabs[tabId] !== undefined ? sstabs[tabId].enabled : defaultEnabled;
-
-      let wasBlocking = sessionStorage.getItem("youtube_nonstop_video_blocked") === "true";
-      saveState(enabled);
-
-      if (enabled) {
-        insertVideoHandler();
-        insertStylesheet();
-        document.dispatchEvent(event);
+      if (audioOnly) {
+        ensureAsset("youtube_nonstop_video_handler", "script", "js/video_handler.js");
+        ensureAsset("youtube_nonstop_video_styles", "style", "style.css");
       } else {
-        removeStylesheet();
-        if (wasBlocking && mustReload === 1) {
-          restoreVideo();
-        }
-        document.dispatchEvent(event);
+        const a = document.getElementById("youtube_nonstop_video_styles");
+        const b = document.getElementById("youtube_nonstop_player_background");
+        if (a) a.remove();
+        if (b) b.remove();
       }
 
-      let nonstopKey = isMusic ? "youtube_music_nonstop" : "youtube_nonstop";
-      if (values[nonstopKey]) {
-        if (!document.getElementById("youtube_nonstop_inject")) {
-          let script = document.createElement("script");
-          script.src = chrome.runtime.getURL("js/nonstop_inject.js");
-          script.id = "youtube_nonstop_inject";
-          document.documentElement.appendChild(script);
-        }
+      if (state[SITE_KEYS.nonstop] === true) {
+        ensureAsset("youtube_nonstop_inject", "script", "js/nonstop_inject.js");
       }
+
+      document.dispatchEvent(syncEvent);
     });
   });
 }
 
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.action === "getCheckUrl") {
-    sendResponse({ checkUrl: getCheckUrl() });
-    return true;
-  }
-  applyOptions(request.data);
+chrome.runtime.onMessage.addListener((request) => {
+  if (request?.data !== 1 && request?.data !== 2) return;
+  applyRuntime();
 });
 
-applyOptions(0);
+document.addEventListener("yt-navigate-finish", applyRuntime);
+applyRuntime();

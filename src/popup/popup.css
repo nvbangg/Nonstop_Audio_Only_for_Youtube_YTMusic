@@ -84,34 +84,33 @@ input:checked + .toggle-track::before {
   transform: translateX(24px);
 }
 
-.toggle-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.reset-btn {
-  display: none;
-  width: 24px;
-  height: 24px;
-  border: none;
-  border-radius: 50%;
-  background: #ff6b6b;
-  color: white;
-  font-size: 14px;
-  cursor: pointer;
-  transition:
-    transform 0.2s,
-    background 0.2s;
-}
-.reset-btn:hover {
-  background: #ee5a5a;
-  transform: scale(1.1);
-}
-.reset-btn.visible {
+.settings-head {
+  width: 100%;
+  border: 0;
+  background: none;
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 8px;
+  font: 500 15px/1.3 system-ui;
+  cursor: pointer;
+}
+.caret {
+  font-size: 20px;
+  transition: transform 0.25s;
+}
+.settings.expanded .caret {
+  transform: rotate(180deg);
+}
+
+.settings-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.25s ease;
+}
+
+.settings.expanded .settings-body {
+  max-height: 260px;
 }
 
 .footer-buttons {
@@ -138,8 +137,4 @@ input:checked + .toggle-track::before {
 .footer-button:hover {
   transform: translateY(-2px);
   color: royalblue;
-}
-
-#settings-btn {
-  background: bisque;
 }

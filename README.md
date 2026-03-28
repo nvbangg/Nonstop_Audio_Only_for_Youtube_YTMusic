@@ -13,8 +13,7 @@
 - 🚫 No more “Video Paused. Continue watching?” popups
 - 🎵 Keeps videos and music playing nonstop, even when switching to another tab or app
 - 🎧 Switch to Audio-only mode to hide video and focus on sound or music
-- ⚡ Blocks video loading to save internet data and speed up audio/music loading
-- ⚙️ Flexibly enable for playlists, videos, or specific tabs
+- ⚙️ Flexibly enable Audio-only mode for specific tabs
 
 ## ⬇️ Installation
 
@@ -32,6 +31,3 @@
 ---
 ## ⚖️ Privacy Policy
 - This project does not collect any data of any kind
-
-## 🙏 Credits
-- [Music Mode for YouTube](https://github.com/Thunderarea/music-mode-for-youtube) by Thunderarea
