@@ -1,11 +1,10 @@
-# Nonstop & Audio Only for YouTube & YouTube Music
+# [Nonstop & Audio Only for YouTube & YouTube Music](https://github.com/nvbangg/Nonstop_Audio_Only_for_Youtube_YTMusic)
 > [!NOTE]
 > Playing Nonstop & Audio Only on YouTube & YouTube Music
 
 <div align="center">
 
-[![Stars](https://img.shields.io/github/stars/nvbangg/Nonstop_Audio_Only_for_Youtube_YTMusic?label=Star%20this%20repo%20if%20useful%20⭐&logo=github)](https://github.com/nvbangg/Nonstop_Audio_Only_for_Youtube_YTMusic) &ensp; [![Donate](https://img.shields.io/badge/Support%20this%20project-pink?style=social&logo=github-sponsors)](https://nvbangg.github.io/#donate)
-<br>👉 Other Tools: [nvbangg-tools](https://github.com/nvbangg/nvbangg-tools)
+[![Stars](https://img.shields.io/github/stars/nvbangg/Nonstop_Audio_Only_for_Youtube_YTMusic?label=Star%20this%20repo%20if%20useful%20⭐&logo=github)](https://github.com/nvbangg/Nonstop_Audio_Only_for_Youtube_YTMusic)　[![Donate](https://img.shields.io/badge/Support-pink?style=social&logo=github-sponsors)](https://nvbangg.github.io/#donate)　[![Other Tools](https://img.shields.io/badge/%F0%9F%91%89%20Other%20Tools-nvbangg--tools-blue)](https://github.com/nvbangg/nvbangg-tools)
 </div> 
 
 ## 📌 Introduction
